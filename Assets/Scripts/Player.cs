@@ -23,7 +23,6 @@ public class Player : MonoBehaviour
 
     [Header("Model")]
     public float modelRotationSpeed = 10;
-    public float modelHopTime = .5f;
 
     [Header("Status")]
     public bool hasCharge = true;
@@ -35,12 +34,6 @@ public class Player : MonoBehaviour
     private Vector3 lastMove = Vector3.zero;
 
     private Rigidbody rb;
-
-    // Hop variables
-    private bool hopping = false;
-    private Vector3 endHop = Vector3.zero;
-    private Vector3 startHop = Vector3.zero;
-    private float currHopTime = 0;
 
     // Animation variables
     private Animator anim;
@@ -93,40 +86,12 @@ public class Player : MonoBehaviour
             chargeMarker.SetActive(hasCharge);
         }
 
-        if (hopping)
+        anim.SetFloat("Speed", rb.velocity.magnitude / maxVelocity);
+        
+        if (lastMove.sqrMagnitude > 0)
         {
-            currHopTime += Time.deltaTime;
-            if (currHopTime >= modelHopTime)
-            {
-                transform.forward = endHop;
-                hopping = false;
-            }
-            else
-            {
-                transform.forward = Vector3.Slerp(startHop, endHop, currHopTime / modelHopTime);
-            }
-        }
-        else
-        {
-            if (lastMove.sqrMagnitude > 0)
-            {
-                float angleBetween = Vector3.Angle(transform.forward, lastMove);
-
-                if (angleBetween > 90)
-                {
-                    hopping = true;
-                    startHop = transform.forward.normalized;
-                    endHop = lastMove.normalized;
-
-                    anim.SetTrigger("Hop");
-
-                    currHopTime = 0;
-                }
-                else
-                {
-                    transform.forward = Vector3.RotateTowards(transform.forward, lastMove.normalized, modelRotationSpeed * Time.deltaTime, 0);
-                }
-            }
+            float angleBetween = Vector3.Angle(transform.forward, lastMove);
+            transform.forward = Vector3.RotateTowards(transform.forward, lastMove.normalized, modelRotationSpeed * Time.deltaTime, 0);
         }
     }
 
