@@ -8,10 +8,15 @@ public class Player : MonoBehaviour
     [Header("Input")]
     public string horizontalAxisName;
     public string verticalAxisName;
+    public string dodgeHorizAxisName;
+    public string dodgeVertAxisName;
+    public string chargeAxisName;
 
     [Header("Movement")]
     public float speed = 30;
     public float maxVelocity = 7;
+    public bool autoDecelerate = false;
+    public float decelerationSpeed = 30;
     public Camera cam;
 
     [Header("Model")]
@@ -68,7 +73,14 @@ public class Player : MonoBehaviour
         lastMove = new Vector3(moveHorizontal, 0, moveVertical);
         lastMove = Quaternion.Euler(0, Mathf.Atan2(cam.transform.forward.x, cam.transform.forward.z) * Mathf.Rad2Deg, 0) * lastMove;
 
-        rb.AddForce(lastMove * speed * Time.fixedDeltaTime);
+        if (lastMove.sqrMagnitude == 0)
+        {
+            rb.AddForce(-rb.velocity.normalized * decelerationSpeed * (rb.velocity.magnitude < Time.fixedDeltaTime ? rb.velocity.magnitude : Time.fixedDeltaTime));
+        }
+        else
+        {
+            rb.AddForce(lastMove * speed * Time.fixedDeltaTime);
+        }
         ClampVelocity();
     }
 
@@ -110,7 +122,7 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
-                    transform.forward = Vector3.RotateTowards(transform.forward, lastMove.normalized, modelRotationSpeed * Time.fixedDeltaTime, 0);
+                    transform.forward = Vector3.RotateTowards(transform.forward, lastMove.normalized, modelRotationSpeed * Time.deltaTime, 0);
                 }
             }
         }
