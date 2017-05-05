@@ -408,6 +408,16 @@ Prefab:
       propertyPath: m_Name
       value: Player1
       objectReference: {fileID: 0}
+    - target: {fileID: 114261872869190434, guid: c1a85bd0881d8404b90363fd4911e962,
+        type: 2}
+      propertyPath: horizontalAxisName
+      value: kj3_p1_LR
+      objectReference: {fileID: 0}
+    - target: {fileID: 114261872869190434, guid: c1a85bd0881d8404b90363fd4911e962,
+        type: 2}
+      propertyPath: verticalAxisName
+      value: kj3_p1_FB
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
   m_IsPrefabParent: 0
