@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PlayerState {  }
+
 [RequireComponent(typeof(Rigidbody), typeof(Animator))]
 public class Player : MonoBehaviour
 {
