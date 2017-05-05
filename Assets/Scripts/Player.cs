@@ -8,6 +8,9 @@ public class Player : MonoBehaviour
     [Header("Input")]
     public string horizontalAxisName;
     public string verticalAxisName;
+    public string dodgeHorizAxisName;
+    public string dodgeVertAxisName;
+    public string chargeAxisName;
 
     [Header("Movement")]
     public float speed = 30;
