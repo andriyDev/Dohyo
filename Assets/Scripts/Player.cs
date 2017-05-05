@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PlayerState {  }
+public enum PlayerState { Default, Charging, Decelerating, Dodging, Recovering };
 
 [RequireComponent(typeof(Rigidbody), typeof(Animator))]
 public class Player : MonoBehaviour
@@ -12,21 +12,24 @@ public class Player : MonoBehaviour
     public string verticalAxisName;
     public string dodgeHorizAxisName;
     public string dodgeVertAxisName;
-    public string chargeAxisName;
+    public string chargeButtonName;
 
     [Header("Movement")]
     public float speed = 30;
     public float maxVelocity = 7;
+    public float steerScale = 0.4f;
     public bool autoDecelerate = false;
     public float decelerationSpeed = 30;
     public Camera cam;
+    public float chargeTime = 0.5f;
+    public float chargeScale = 4f;
+    public float dodgeTime = 0.1f;
+    public float dodgeScale = 5f;
+    public float dodgeCooldown = 2f;
 
     [Header("Model")]
     public float modelRotationSpeed = 10;
     public float modelHopTime = .5f;
-
-    [Header("Status")]
-    public bool hasCharge = true;
 
     [Header("References")]
     public GameObject chargeMarker;
@@ -45,7 +48,15 @@ public class Player : MonoBehaviour
     // Animation variables
     private Animator anim;
     
-	private void Start ()
+    // Player state variables
+    private PlayerState state;
+    private bool hasCharge = true;
+    private float chargeStart;
+    private float dodgeStart;
+    private float dodgeEnd = 0;
+
+
+    private void Start ()
     {
         rb = GetComponent<Rigidbody>();
         rb.maxAngularVelocity = 1.0f;
@@ -56,6 +67,8 @@ public class Player : MonoBehaviour
         {
             cam = Camera.main;
         }
+
+        state = PlayerState.Default;
     }
 	
 	private void Update ()
@@ -66,24 +79,75 @@ public class Player : MonoBehaviour
         }
 
         SyncModelToState();
-	}
+
+        float stepHorizontal = Input.GetAxis(dodgeHorizAxisName);
+        float stepVertical = Input.GetAxis(dodgeVertAxisName);
+        Vector3 step = new Vector3(stepHorizontal, 0, stepVertical);
+        step = LocalToGlobal(step);
+
+        if (state == PlayerState.Default && Input.GetButtonDown(chargeButtonName) && hasCharge)
+        {
+            state = PlayerState.Charging;
+          //  hasCharge = false;
+            chargeStart = Time.time;
+            rb.velocity = lastMove.normalized * maxVelocity * chargeScale;
+        }
+
+        else if (state == PlayerState.Default && step.magnitude > 0)
+        {
+            state = PlayerState.Dodging;
+            dodgeStart = Time.time;
+            rb.velocity = step.normalized * dodgeScale;
+        }
+    }
 
     private void FixedUpdate()
     {
         float moveHorizontal = Input.GetAxis(horizontalAxisName);
         float moveVertical = Input.GetAxis(verticalAxisName);
-        lastMove = new Vector3(moveHorizontal, 0, moveVertical);
-        lastMove = Quaternion.Euler(0, Mathf.Atan2(cam.transform.forward.x, cam.transform.forward.z) * Mathf.Rad2Deg, 0) * lastMove;
+        switch (state)
+        {
+            case PlayerState.Default:
+                lastMove = new Vector3(moveHorizontal, 0, moveVertical);
+                lastMove = LocalToGlobal(lastMove);
 
-        if (lastMove.sqrMagnitude == 0)
-        {
-            rb.AddForce(-rb.velocity.normalized * decelerationSpeed * (rb.velocity.magnitude < Time.fixedDeltaTime ? rb.velocity.magnitude : Time.fixedDeltaTime));
+                if (lastMove.sqrMagnitude == 0)
+                {
+                    rb.AddForce(-rb.velocity.normalized * decelerationSpeed * (rb.velocity.magnitude < Time.fixedDeltaTime ? rb.velocity.magnitude : Time.fixedDeltaTime));
+                }
+                else
+                {
+                    rb.AddForce(lastMove * speed * Time.fixedDeltaTime);
+                }
+                ClampVelocity(maxVelocity);
+                break;
+            case PlayerState.Charging:
+                rb.velocity += LocalToGlobal(new Vector3(moveHorizontal, 0, moveVertical))*steerScale;
+                ClampVelocity(maxVelocity*chargeScale);
+                if (Time.time - chargeStart > chargeTime)
+                {
+                    state = PlayerState.Default;
+                }
+                break;
+            case PlayerState.Dodging:
+                if (Time.time - dodgeStart > dodgeTime)
+                {
+                    state = PlayerState.Recovering;
+                    dodgeEnd = Time.time;
+                    rb.velocity = new Vector3(0, 0, 0);
+
+                }
+                break;
+            case PlayerState.Recovering:
+                if (Time.time - dodgeEnd > dodgeCooldown)
+                {
+                    state = PlayerState.Default;
+
+                }
+                break;
         }
-        else
-        {
-            rb.AddForce(lastMove * speed * Time.fixedDeltaTime);
-        }
-        ClampVelocity();
+        
+        
     }
 
     private void SyncModelToState()
@@ -138,10 +202,16 @@ public class Player : MonoBehaviour
         }
     }
 
-    private Vector3 ClampVelocity()
+    private void ClampVelocity(float clamp)
     {
-        return rb.velocity = rb.velocity.normalized * Mathf.Min(rb.velocity.magnitude, maxVelocity);
+        rb.velocity = rb.velocity.normalized * Mathf.Min(rb.velocity.magnitude, clamp);
     }
+
+    private Vector3 LocalToGlobal(Vector3 vector)
+    {
+        return Quaternion.Euler(0, Mathf.Atan2(cam.transform.forward.x, cam.transform.forward.z) * Mathf.Rad2Deg, 0) * vector;
+    }
+
 
     private void Lost()
     {
