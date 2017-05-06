@@ -26,10 +26,12 @@ public class Player : MonoBehaviour
     public float dodgeTime = 0.1f;
     public float dodgeScale = 5f;
     public float dodgeCooldown = 2f;
+    
 
     [Header("Extra")]
     public float tauntLength = 3;
     public float maxSpeedForTaunt = 0.5f;
+    public float dodgeTolerance = 3;
 
     [Header("Model")]
     public float modelRotationSpeed = 10;
@@ -52,6 +54,8 @@ public class Player : MonoBehaviour
     private float chargeStart;
     private float dodgeStart;
     private float dodgeEnd = 0;
+    private bool dodged = false;
+    private Vector3 dodgePosition;
     private float tauntStart = 0;
 
     private void Start ()
@@ -88,10 +92,13 @@ public class Player : MonoBehaviour
             if (hasCharge)
             {
                 state = PlayerState.Charging;
-
                 anim.SetBool("Charging", true);
                 hasCharge = false;
                 chargeStart = Time.time;
+                if (lastMove.magnitude == 0)
+                {
+                    lastMove = transform.forward.normalized;
+                }
                 rb.velocity = lastMove.normalized * maxVelocity * chargeScale;
             }
             else if (rb.velocity.magnitude < maxSpeedForTaunt)
@@ -104,11 +111,12 @@ public class Player : MonoBehaviour
             }
         }
 
-        else if (state == PlayerState.Default && step.magnitude > 0)
+        else if (state == PlayerState.Default && step.magnitude > 0.8)
         {
             state = PlayerState.Dodging;
             dodgeStart = Time.time;
             rb.velocity = step.normalized * dodgeScale;
+            dodgePosition = transform.position;
         }
     }
 
@@ -158,6 +166,14 @@ public class Player : MonoBehaviour
                 }
                 break;
             case PlayerState.Dodging:
+                if (!dodged)
+                {
+                    Vector3 dir = dodgePosition - transform.position;
+                    RaycastHit hitInfo;
+                    if (Physics.BoxCast(transform.position + dir / 2, new Vector3(dodgeTolerance, 1, dir.magnitude), dir, out hitInfo)) {
+                        dodged = true;
+                    }
+                }
                 if (Time.time - dodgeStart > dodgeTime)
                 {
                     state = PlayerState.Recovering;
