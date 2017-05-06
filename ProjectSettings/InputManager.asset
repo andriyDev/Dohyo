@@ -177,9 +177,9 @@ InputManager:
     dead: 0.19
     sensitivity: 1
     snap: 0
-    invert: 0
+    invert: 1
     type: 2
-    axis: 5
+    axis: 4
     joyNum: 1
   - serializedVersion: 3
     m_Name: j4_p1_SLR
@@ -195,7 +195,7 @@ InputManager:
     snap: 0
     invert: 0
     type: 2
-    axis: 4
+    axis: 3
     joyNum: 1
   - serializedVersion: 3
     m_Name: j4_p1_CH
@@ -257,9 +257,9 @@ InputManager:
     dead: 0.19
     sensitivity: 1
     snap: 0
-    invert: 0
+    invert: 1
     type: 2
-    axis: 5
+    axis: 3
     joyNum: 2
   - serializedVersion: 3
     m_Name: j4_p2_SLR
@@ -275,7 +275,7 @@ InputManager:
     snap: 0
     invert: 0
     type: 2
-    axis: 4
+    axis: 2
     joyNum: 2
   - serializedVersion: 3
     m_Name: j4_p2_CH
@@ -337,9 +337,9 @@ InputManager:
     dead: 0.19
     sensitivity: 1
     snap: 0
-    invert: 0
+    invert: 1
     type: 2
-    axis: 5
+    axis: 4
     joyNum: 3
   - serializedVersion: 3
     m_Name: j4_p3_SLR
@@ -355,7 +355,7 @@ InputManager:
     snap: 0
     invert: 0
     type: 2
-    axis: 4
+    axis: 3
     joyNum: 3
   - serializedVersion: 3
     m_Name: j4_p3_CH
@@ -417,9 +417,9 @@ InputManager:
     dead: 0.19
     sensitivity: 1
     snap: 0
-    invert: 0
+    invert: 1
     type: 2
-    axis: 5
+    axis: 4
     joyNum: 4
   - serializedVersion: 3
     m_Name: j4_p4_SLR
@@ -435,7 +435,7 @@ InputManager:
     snap: 0
     invert: 0
     type: 2
-    axis: 4
+    axis: 3
     joyNum: 4
   - serializedVersion: 3
     m_Name: j4_p4_CH

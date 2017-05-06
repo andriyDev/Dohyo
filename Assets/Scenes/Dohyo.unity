@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -274,7 +274,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 1
+  orthographic: 0
   orthographic size: 7.5
   m_Depth: -1
   m_CullingMask:
@@ -361,6 +361,21 @@ Prefab:
         type: 2}
       propertyPath: speed
       value: 1500
+      objectReference: {fileID: 0}
+    - target: {fileID: 114261872869190434, guid: c1a85bd0881d8404b90363fd4911e962,
+        type: 2}
+      propertyPath: dodgeHorizAxisName
+      value: j4_p2_SLR
+      objectReference: {fileID: 0}
+    - target: {fileID: 114261872869190434, guid: c1a85bd0881d8404b90363fd4911e962,
+        type: 2}
+      propertyPath: dodgeVertAxisName
+      value: j4_p2_SFB
+      objectReference: {fileID: 0}
+    - target: {fileID: 114261872869190434, guid: c1a85bd0881d8404b90363fd4911e962,
+        type: 2}
+      propertyPath: chargeButtonName
+      value: j4_p2_CH
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
