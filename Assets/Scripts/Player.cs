@@ -244,7 +244,9 @@ public class Player : MonoBehaviour
         }
         float speedVar = rb.velocity.magnitude / maxVelocity;
         anim.SetFloat("Speed", speedVar);
-        
+
+        anim.SetBool("Taunting", state == PlayerState.Taunting);
+
         if (lastMove.sqrMagnitude > 0)
         {
             transform.forward = Vector3.RotateTowards(transform.forward, lastMove.normalized, modelRotationSpeed * Time.deltaTime, 0);
