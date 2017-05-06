@@ -201,9 +201,10 @@ public class Player : MonoBehaviour
                 {
                     Vector3 dir = dodgePosition - transform.position;
                     RaycastHit hitInfo;
-                    if (Physics.BoxCast(transform.position + dir / 2, new Vector3(dodgeTolerance, 1, dir.magnitude/2), dir, out hitInfo)) {
+                    if (Physics.BoxCast(transform.position + dir / 2, new Vector3(dodgeTolerance, 0.5f, dir.magnitude/2), dir, out hitInfo)) {
                         Debug.Log("DODGED!");
-                        dodged = true;
+                        Player target = hitInfo.rigidbody.GetComponent<Player>();
+                        dodged = target != this && target.state == PlayerState.Charging;
                     }
                 }
                 if (Time.time - dodgeStart > dodgeTime)
@@ -212,6 +213,7 @@ public class Player : MonoBehaviour
                     {
                         state = PlayerState.Default;
                         dodged = false;
+                        hasCharge = true;
                     }
                     else
                     {
@@ -265,6 +267,7 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("collided");
         if (collision.gameObject.tag == "Player")
         {
             Player other = collision.gameObject.GetComponent<Player>();
