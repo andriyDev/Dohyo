@@ -153,6 +153,9 @@ ModelImporter:
     100290: Plane.003
     100292: Plane.004
     100294: Torus
+    100296: Camera.001
+    100298: Cube.233
+    100300: Lamp.001
     400000: Camera
     400002: Circle
     400004: Circle.001
@@ -301,6 +304,9 @@ ModelImporter:
     400290: Plane.003
     400292: Plane.004
     400294: Torus
+    400296: Camera.001
+    400298: Cube.233
+    400300: Lamp.001
     2300000: Circle
     2300002: Circle.001
     2300004: Circle.002
@@ -446,6 +452,7 @@ ModelImporter:
     2300284: Plane.003
     2300286: Plane.004
     2300288: Torus
+    2300290: Cube.233
     3300000: Circle
     3300002: Circle.001
     3300004: Circle.002
@@ -591,6 +598,7 @@ ModelImporter:
     3300284: Plane.003
     3300286: Plane.004
     3300288: Torus
+    3300290: Cube.233
     4300000: Circle
     4300002: Cylinder.017
     4300004: Cylinder.016
@@ -628,6 +636,9 @@ ModelImporter:
     4300068: Cylinder.021
     4300070: Cylinder.022
     4300072: Cylinder.023
+    4300074: Plane.002
+    4300076: Cube.233
+    4300078: Cube.004
   materials:
     importMaterials: 1
     materialName: 0
