@@ -192,7 +192,6 @@ public class Player : MonoBehaviour
                 if(chargedBy.state != PlayerState.Charging)
                 {
                     state = PlayerState.AfterCharged;
-                    birdStuffs.SetActive(false);
                     afterChargeStartTime = Time.time;
                 }
                 break;
