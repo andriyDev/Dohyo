@@ -176,10 +176,12 @@ public class Player : MonoBehaviour
                 }
                 if (Time.time - dodgeStart > dodgeTime)
                 {
-                    state = PlayerState.Recovering;
+                    if (dodged)
+                        state = PlayerState.Default;
+                    else
+                        state = PlayerState.Recovering;
                     dodgeEnd = Time.time;
                     rb.velocity = new Vector3(0, 0, 0);
-
                 }
                 break;
             case PlayerState.Recovering:
