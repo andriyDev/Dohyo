@@ -128,23 +128,23 @@ public class Player : MonoBehaviour
     {
         float moveHorizontal = Input.GetAxis(horizontalAxisName);
         float moveVertical = Input.GetAxis(verticalAxisName);
-        
+
         switch (state)
         {
             case PlayerState.Default:
             case PlayerState.AfterCharged:
                 lastMove = new Vector3(moveHorizontal, 0, moveVertical);
                 lastMove = LocalToGlobal(lastMove);
-
+                float deceleration = (state == PlayerState.AfterCharged ? afterChargedDecelerationAmt : decelerationSpeed);
                 if (lastMove.sqrMagnitude == 0)
                 {
-                    if (rb.velocity.magnitude < Time.fixedDeltaTime * (state == PlayerState.AfterCharged ? afterChargedDecelerationAmt : decelerationSpeed))
+                    if (rb.velocity.magnitude < Time.fixedDeltaTime * deceleration)
                     {
                         rb.velocity = Vector3.zero;
                     }
                     else
                     {
-                        rb.AddForce(-rb.velocity.normalized * (state == PlayerState.AfterCharged ? afterChargedDecelerationAmt : decelerationSpeed) * Time.fixedDeltaTime, ForceMode.VelocityChange);
+                        rb.AddForce(-rb.velocity.normalized * deceleration * Time.fixedDeltaTime, ForceMode.VelocityChange);
                         ClampVelocity(maxVelocity);
                     }
                 }
@@ -180,8 +180,8 @@ public class Player : MonoBehaviour
                 }
                 break;
             case PlayerState.Charging:
-                rb.velocity += LocalToGlobal(new Vector3(moveHorizontal, 0, moveVertical))*steerScale;
-                ClampVelocity(maxVelocity*chargeScale);
+                rb.velocity += LocalToGlobal(new Vector3(moveHorizontal, 0, moveVertical)) * steerScale;
+                ClampVelocity(maxVelocity * chargeScale);
                 if (Time.time - chargeStart > chargeTime)
                 {
                     state = PlayerState.Default;
@@ -190,7 +190,7 @@ public class Player : MonoBehaviour
                 }
                 break;
             case PlayerState.BeingCharged:
-                if(chargedBy.state != PlayerState.Charging)
+                if (chargedBy.state != PlayerState.Charging)
                 {
                     state = PlayerState.AfterCharged;
                     afterChargeStartTime = Time.time;
@@ -201,28 +201,35 @@ public class Player : MonoBehaviour
                 {
                     Vector3 dir = dodgePosition - transform.position;
                     RaycastHit hitInfo;
-                    if (Physics.BoxCast(transform.position + dir / 2, new Vector3(dodgeTolerance, 1, dir.magnitude), dir, out hitInfo)) {
+                    if (Physics.BoxCast(transform.position + dir / 2, new Vector3(dodgeTolerance, 1, dir.magnitude/2), dir, out hitInfo)) {
+                        Debug.Log("DODGED!");
                         dodged = true;
                     }
                 }
                 if (Time.time - dodgeStart > dodgeTime)
                 {
-                    state = PlayerState.Recovering;
+                    if (dodged)
+                    {
+                        state = PlayerState.Default;
+                        dodged = false;
+                    }
+                    else
+                    {
+                        state = PlayerState.Recovering;
+                    }
                     dodgeEnd = Time.time;
                     rb.velocity = new Vector3(0, 0, 0);
-
                 }
                 break;
             case PlayerState.Recovering:
+                Debug.Log("Recovering");
                 if (Time.time - dodgeEnd > dodgeCooldown)
                 {
                     state = PlayerState.Default;
 
                 }
                 break;
-        }
-        
-        
+        }   
     }
 
     private void SyncModelToState()
@@ -237,8 +244,6 @@ public class Player : MonoBehaviour
         }
         float speedVar = rb.velocity.magnitude / maxVelocity;
         anim.SetFloat("Speed", speedVar);
-
-        anim.SetBool("Taunting", state == PlayerState.Taunting);
         
         if (lastMove.sqrMagnitude > 0)
         {
@@ -282,6 +287,7 @@ public class Player : MonoBehaviour
     {
         return Quaternion.Euler(0, Mathf.Atan2(cam.transform.forward.x, cam.transform.forward.z) * Mathf.Rad2Deg, 0) * vector;
     }
+
 
     private void Lost()
     {
