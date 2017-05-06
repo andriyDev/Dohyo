@@ -41,6 +41,7 @@ public class Player : MonoBehaviour
     [Header("References")]
     public GameObject chargeMarker;
     public GameObject noChargeMarker;
+    public GameObject birdStuffs;
 
     // Movement variables
     private Vector3 lastMove = Vector3.zero;
@@ -191,6 +192,7 @@ public class Player : MonoBehaviour
                 if(chargedBy.state != PlayerState.Charging)
                 {
                     state = PlayerState.AfterCharged;
+                    birdStuffs.SetActive(false);
                     afterChargeStartTime = Time.time;
                 }
                 break;
@@ -264,6 +266,7 @@ public class Player : MonoBehaviour
                 if (other.state == PlayerState.Charging && state != PlayerState.Charging)
                 {
                     state = PlayerState.BeingCharged;
+                    birdStuffs.SetActive(true);
                     chargedBy = other;
                 }
             }
