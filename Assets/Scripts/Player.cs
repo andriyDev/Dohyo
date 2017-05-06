@@ -157,6 +157,7 @@ public class Player : MonoBehaviour
                 if (state == PlayerState.AfterCharged && Time.time - afterChargeStartTime > afterChargedLength)
                 {
                     state = PlayerState.Default;
+                    birdStuffs.SetActive(false);
                 }
 
                 break;
