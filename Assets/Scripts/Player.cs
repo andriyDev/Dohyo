@@ -39,6 +39,7 @@ public class Player : MonoBehaviour
     [Header("References")]
     public GameObject chargeMarker;
     public GameObject noChargeMarker;
+    public GameObject birdStuffs;
 
     // Movement variables
     private Vector3 lastMove = Vector3.zero;
@@ -229,6 +230,23 @@ public class Player : MonoBehaviour
         if(other.tag == "Ring")
         {
             Lost();
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            Player other = collision.gameObject.GetComponent<Player>();
+            if (other)
+            {
+                if (other.state == PlayerState.Charging && state != PlayerState.Charging)
+                {
+                    state = PlayerState.BeingCharged;
+                    birdStuffs.SetActive(true);
+                    chargedBy = other;
+                }
+            }
         }
     }
 
