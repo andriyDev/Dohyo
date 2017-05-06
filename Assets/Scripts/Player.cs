@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PlayerState { Default, Taunting, Charging, Decelerating, BeingCharged, AfterCharged, Dodging, Recovering };
+public enum PlayerState { Default, Taunting, Charging, Decelerating, BeingCharged, AfterCharged, Dodging, Recovering, GameOver, Win };
 
 [RequireComponent(typeof(Rigidbody), typeof(Animator))]
 public class Player : MonoBehaviour
@@ -34,6 +34,9 @@ public class Player : MonoBehaviour
     public float tauntLength = 3;
     public float maxSpeedForTaunt = 0.5f;
     public float dodgeTolerance = 3;
+    public float timeForWinCamera = 1;
+    public Vector3 camLocalDist = new Vector3(0, 1.5f, 5);
+    public float timeForRestart = 3;
 
     [Header("Model")]
     public float modelRotationSpeed = 10;
@@ -63,6 +66,11 @@ public class Player : MonoBehaviour
 
     private Player chargedBy;
     private float afterChargeStartTime;
+
+    private float winTime = 0;
+    private bool startedWinAnimation = false;
+    private Vector3 winCameraStartPos = Vector3.zero;
+    private Vector3 winCameraStartRot = Vector3.zero;
 
     private void Start ()
     {
@@ -122,6 +130,31 @@ public class Player : MonoBehaviour
             rb.velocity = step.normalized * dodgeScale;
             dodgePosition = transform.position;
         }
+
+        if (state == PlayerState.Win)
+        {
+            if(Time.time - winTime < timeForWinCamera)
+            {
+                cam.transform.position = Vector3.Lerp(winCameraStartPos, transform.position + (Vector3)(transform.localToWorldMatrix * camLocalDist), (Time.time - winTime) / timeForWinCamera);
+                cam.transform.forward = Vector3.Slerp(winCameraStartRot, -transform.forward, (Time.time - winTime) / timeForWinCamera);
+            }
+            else
+            {
+                cam.transform.position = transform.position + new Vector3(0, 1.5f, 0) + (Vector3)(transform.localToWorldMatrix * new Vector3(0, 0, 5));
+                cam.transform.forward = -transform.forward;
+
+                if(!startedWinAnimation)
+                {
+                    startedWinAnimation = true;
+                    anim.SetTrigger("Win");
+                }
+            }
+
+            if(Time.time - winTime > timeForRestart)
+            {
+                // TODO: DO A RESTART
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -139,15 +172,7 @@ public class Player : MonoBehaviour
                 float usedSpeed = (state == PlayerState.AfterCharged ? afterChargedSpeed : speed);
                 if (lastMove.sqrMagnitude == 0)
                 {
-                    if (rb.velocity.magnitude < Time.fixedDeltaTime * deceleration)
-                    {
-                        rb.velocity = Vector3.zero;
-                    }
-                    else
-                    {
-                        rb.AddForce(-rb.velocity.normalized * deceleration * Time.fixedDeltaTime, ForceMode.VelocityChange);
-                        ClampVelocity(maxVelocity);
-                    }
+                    DoDeceleration(deceleration);
                 }
                 else
                 {
@@ -164,15 +189,7 @@ public class Player : MonoBehaviour
                 break;
             case PlayerState.Taunting:
 
-                if (rb.velocity.magnitude < Time.fixedDeltaTime * decelerationSpeed)
-                {
-                    rb.velocity = Vector3.zero;
-                }
-                else
-                {
-                    rb.AddForce(-rb.velocity.normalized * decelerationSpeed * Time.fixedDeltaTime, ForceMode.VelocityChange);
-                    ClampVelocity(maxVelocity);
-                }
+                DoDeceleration(decelerationSpeed);
 
                 if (Time.time - tauntStart > tauntLength)
                 {
@@ -231,6 +248,12 @@ public class Player : MonoBehaviour
 
                 }
                 break;
+            case PlayerState.GameOver:
+                DoDeceleration(decelerationSpeed);
+                break;
+            case PlayerState.Win:
+                DoDeceleration(decelerationSpeed);
+                break;
         }   
     }
 
@@ -267,7 +290,6 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("collided");
         if (collision.gameObject.tag == "Player")
         {
             Player other = collision.gameObject.GetComponent<Player>();
@@ -283,6 +305,19 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void DoDeceleration(float amount)
+    {
+        if (rb.velocity.magnitude < Time.fixedDeltaTime * amount)
+        {
+            rb.velocity = Vector3.zero;
+        }
+        else
+        {
+            rb.AddForce(-rb.velocity.normalized * amount * Time.fixedDeltaTime, ForceMode.VelocityChange);
+            ClampVelocity(maxVelocity);
+        }
+    }
+
     private void ClampVelocity(float clamp)
     {
         rb.velocity = rb.velocity.normalized * Mathf.Min(rb.velocity.magnitude, clamp);
@@ -292,10 +327,40 @@ public class Player : MonoBehaviour
     {
         return Quaternion.Euler(0, Mathf.Atan2(cam.transform.forward.x, cam.transform.forward.z) * Mathf.Rad2Deg, 0) * vector;
     }
-
-
+    
     private void Lost()
     {
-        Debug.Log("You lose!!!");
+        anim.SetTrigger("Death");
+        state = PlayerState.GameOver;
+
+        int stillPlaying = 0;
+        Player winner = null;
+        Player[] players = FindObjectsOfType<Player>();
+        for(int i = 0; i < players.Length && stillPlaying < 2; i++)
+        {
+            if(players[i].state != PlayerState.GameOver)
+            {
+                stillPlaying++;
+                winner = players[i];
+                if(stillPlaying > 1)
+                {
+                    break;
+                }
+            }
+        }
+
+        if(stillPlaying == 1)
+        {
+            winner.Win();
+        }
+    }
+
+    private void Win()
+    {
+        state = PlayerState.Win;
+
+        winTime = Time.time;
+        winCameraStartPos = cam.transform.position;
+        winCameraStartRot = cam.transform.forward;
     }
 }
