@@ -171,20 +171,27 @@ public class Player : MonoBehaviour
                     Vector3 dir = dodgePosition - transform.position;
                     RaycastHit hitInfo;
                     if (Physics.BoxCast(transform.position + dir / 2, new Vector3(dodgeTolerance, 1, dir.magnitude/2), dir, out hitInfo)) {
+                        Debug.Log("DODGED!");
                         dodged = true;
                     }
                 }
                 if (Time.time - dodgeStart > dodgeTime)
                 {
                     if (dodged)
+                    {
                         state = PlayerState.Default;
+                        dodged = false;
+                    }
                     else
+                    {
                         state = PlayerState.Recovering;
+                    }
                     dodgeEnd = Time.time;
                     rb.velocity = new Vector3(0, 0, 0);
                 }
                 break;
             case PlayerState.Recovering:
+                Debug.Log("Recovering");
                 if (Time.time - dodgeEnd > dodgeCooldown)
                 {
                     state = PlayerState.Default;
