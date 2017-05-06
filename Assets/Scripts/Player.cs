@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
     public float dodgeCooldown = 2f;
     public float afterChargedLength = 2;
     public float afterChargedDecelerationAmt = 350;
-    
+    public float afterChargedSpeed = 350;
 
     [Header("Extra")]
     public float tauntLength = 3;
@@ -136,6 +136,7 @@ public class Player : MonoBehaviour
                 lastMove = new Vector3(moveHorizontal, 0, moveVertical);
                 lastMove = LocalToGlobal(lastMove);
                 float deceleration = (state == PlayerState.AfterCharged ? afterChargedDecelerationAmt : decelerationSpeed);
+                float usedSpeed = (state == PlayerState.AfterCharged ? afterChargedSpeed : speed);
                 if (lastMove.sqrMagnitude == 0)
                 {
                     if (rb.velocity.magnitude < Time.fixedDeltaTime * deceleration)
@@ -150,7 +151,7 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
-                    rb.AddForce(lastMove * speed * Time.fixedDeltaTime);
+                    rb.AddForce(lastMove * usedSpeed * Time.fixedDeltaTime);
                     ClampVelocity(maxVelocity);
                 }
 
