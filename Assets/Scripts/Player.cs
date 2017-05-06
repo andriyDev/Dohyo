@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PlayerState { Default, Taunting, Charging, Decelerating, Dodging, Recovering };
+public enum PlayerState { Default, Taunting, Charging, Decelerating, BeingCharged, AfterCharged, Dodging, Recovering };
 
 [RequireComponent(typeof(Rigidbody), typeof(Animator))]
 public class Player : MonoBehaviour
@@ -26,6 +26,8 @@ public class Player : MonoBehaviour
     public float dodgeTime = 0.1f;
     public float dodgeScale = 5f;
     public float dodgeCooldown = 2f;
+    public float afterChargedLength = 2;
+    public float afterChargedDecelerationAmt = 350;
     
 
     [Header("Extra")]
@@ -57,6 +59,9 @@ public class Player : MonoBehaviour
     private bool dodged = false;
     private Vector3 dodgePosition;
     private float tauntStart = 0;
+
+    private Player chargedBy;
+    private float afterChargeStartTime;
 
     private void Start ()
     {
@@ -105,8 +110,6 @@ public class Player : MonoBehaviour
             {
                 state = PlayerState.Taunting;
 
-                anim.SetTrigger("Taunting");
-
                 tauntStart = Time.time;
             }
         }
@@ -124,21 +127,23 @@ public class Player : MonoBehaviour
     {
         float moveHorizontal = Input.GetAxis(horizontalAxisName);
         float moveVertical = Input.GetAxis(verticalAxisName);
+        
         switch (state)
         {
             case PlayerState.Default:
+            case PlayerState.AfterCharged:
                 lastMove = new Vector3(moveHorizontal, 0, moveVertical);
                 lastMove = LocalToGlobal(lastMove);
 
                 if (lastMove.sqrMagnitude == 0)
                 {
-                    if (rb.velocity.magnitude < Time.fixedDeltaTime * decelerationSpeed)
+                    if (rb.velocity.magnitude < Time.fixedDeltaTime * (state == PlayerState.AfterCharged ? afterChargedDecelerationAmt : decelerationSpeed))
                     {
                         rb.velocity = Vector3.zero;
                     }
                     else
                     {
-                        rb.AddForce(-rb.velocity.normalized * decelerationSpeed * Time.fixedDeltaTime, ForceMode.VelocityChange);
+                        rb.AddForce(-rb.velocity.normalized * (state == PlayerState.AfterCharged ? afterChargedDecelerationAmt : decelerationSpeed) * Time.fixedDeltaTime, ForceMode.VelocityChange);
                         ClampVelocity(maxVelocity);
                     }
                 }
@@ -147,9 +152,26 @@ public class Player : MonoBehaviour
                     rb.AddForce(lastMove * speed * Time.fixedDeltaTime);
                     ClampVelocity(maxVelocity);
                 }
+
+                if (state == PlayerState.AfterCharged && Time.time - afterChargeStartTime > afterChargedLength)
+                {
+                    state = PlayerState.Default;
+                }
+
                 break;
             case PlayerState.Taunting:
-                if(Time.time - tauntStart > tauntLength)
+
+                if (rb.velocity.magnitude < Time.fixedDeltaTime * decelerationSpeed)
+                {
+                    rb.velocity = Vector3.zero;
+                }
+                else
+                {
+                    rb.AddForce(-rb.velocity.normalized * decelerationSpeed * Time.fixedDeltaTime, ForceMode.VelocityChange);
+                    ClampVelocity(maxVelocity);
+                }
+
+                if (Time.time - tauntStart > tauntLength)
                 {
                     state = PlayerState.Default;
                     hasCharge = true;
@@ -163,6 +185,13 @@ public class Player : MonoBehaviour
                     state = PlayerState.Default;
 
                     anim.SetBool("Charging", false);
+                }
+                break;
+            case PlayerState.BeingCharged:
+                if(chargedBy.state != PlayerState.Charging)
+                {
+                    state = PlayerState.AfterCharged;
+                    afterChargeStartTime = Time.time;
                 }
                 break;
             case PlayerState.Dodging:
@@ -206,6 +235,8 @@ public class Player : MonoBehaviour
         }
         float speedVar = rb.velocity.magnitude / maxVelocity;
         anim.SetFloat("Speed", speedVar);
+
+        anim.SetBool("Taunting", state == PlayerState.Taunting);
         
         if (lastMove.sqrMagnitude > 0)
         {
@@ -223,6 +254,22 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            Player other = collision.gameObject.GetComponent<Player>();
+            if (other)
+            {
+                if (other.state == PlayerState.Charging && state != PlayerState.Charging)
+                {
+                    state = PlayerState.BeingCharged;
+                    chargedBy = other;
+                }
+            }
+        }
+    }
+
     private void ClampVelocity(float clamp)
     {
         rb.velocity = rb.velocity.normalized * Mathf.Min(rb.velocity.magnitude, clamp);
@@ -232,7 +279,6 @@ public class Player : MonoBehaviour
     {
         return Quaternion.Euler(0, Mathf.Atan2(cam.transform.forward.x, cam.transform.forward.z) * Mathf.Rad2Deg, 0) * vector;
     }
-
 
     private void Lost()
     {
