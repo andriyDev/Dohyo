@@ -201,12 +201,11 @@ public class Player : MonoBehaviour
                 if (!dodged)
                 {
                     Vector3 dir = dodgePosition - transform.position;
-                    RaycastHit hitInfo;
-                    if (Physics.BoxCast(transform.position + dir / 2, new Vector3(dodgeTolerance, 0.5f, dir.magnitude/2), dir, out hitInfo)) {
-                        Debug.Log("DODGED!");
-                        Player target = hitInfo.rigidbody.GetComponent<Player>();
-                        dodged = target != this && target.state == PlayerState.Charging;
-                    }
+                    Vector3 a = new Vector3(dodgePosition.x, dodgePosition.z, 1);
+                    Vector3 b = new Vector3(transform.position.x, transform.position.z, 1);
+                    Vector3 dodgeLine = Vector3.Cross(a, b);
+                    for ()
+
                 }
                 if (Time.time - dodgeStart > dodgeTime)
                 {
