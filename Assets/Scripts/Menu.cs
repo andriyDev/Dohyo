@@ -131,6 +131,8 @@ public class Menu : MonoBehaviour
     void Play()
     {
         playerCount += 2;
+
+        desiredPlayerScene = (ctrlType ? "J4_" : "KJ3_") + (playerCount) + "P";
     }
 
     void HowToPlay()
