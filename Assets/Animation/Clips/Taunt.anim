@@ -2030,7 +2030,7 @@ AnimationClip:
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 10
+    intParameter: 50
     messageOptions: 0
   - time: 0.28301886
     functionName: EmitAtRightFoot
@@ -2044,7 +2044,7 @@ AnimationClip:
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 10
+    intParameter: 50
     messageOptions: 0
   - time: 0.5471698
     functionName: EmitAtLeftFoot
@@ -2053,10 +2053,10 @@ AnimationClip:
     floatParameter: 0
     intParameter: 15
     messageOptions: 0
-  - time: 1
+  - time: 0.9245283
     functionName: EmitTauntCompleteParticles
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 15
+    intParameter: 50
     messageOptions: 0
