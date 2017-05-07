@@ -121,7 +121,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4465979934667052, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 2.38
       objectReference: {fileID: 0}
     - target: {fileID: 4465979934667052, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
       propertyPath: m_LocalPosition.z
@@ -196,7 +196,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4465979934667052, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 2.38
       objectReference: {fileID: 0}
     - target: {fileID: 4465979934667052, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
       propertyPath: m_LocalPosition.z
@@ -226,6 +226,26 @@ Prefab:
       propertyPath: m_Name
       value: Player2
       objectReference: {fileID: 0}
+    - target: {fileID: 198136348183850036, guid: c1a85bd0881d8404b90363fd4911e962,
+        type: 2}
+      propertyPath: randomSeed
+      value: -1240078034
+      objectReference: {fileID: 0}
+    - target: {fileID: 23717194790798994, guid: c1a85bd0881d8404b90363fd4911e962,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 990060cf402abc5478cd3fc552b6da64, type: 2}
+    - target: {fileID: 23710277255273894, guid: c1a85bd0881d8404b90363fd4911e962,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cf44d07718d2ce046b6bb759ecca0440, type: 2}
+    - target: {fileID: 23041339633061890, guid: c1a85bd0881d8404b90363fd4911e962,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4e0323a24f482c441911619e132d974c, type: 2}
     - target: {fileID: 114261872869190434, guid: c1a85bd0881d8404b90363fd4911e962,
         type: 2}
       propertyPath: horizontalAxisName
@@ -251,29 +271,10 @@ Prefab:
       propertyPath: chargeButtonName
       value: kj3_p2_CH
       objectReference: {fileID: 0}
-    - target: {fileID: 23710277255273894, guid: c1a85bd0881d8404b90363fd4911e962,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: cf44d07718d2ce046b6bb759ecca0440, type: 2}
-    - target: {fileID: 4465979934667052, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 23041339633061890, guid: c1a85bd0881d8404b90363fd4911e962,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 4e0323a24f482c441911619e132d974c, type: 2}
-    - target: {fileID: 23717194790798994, guid: c1a85bd0881d8404b90363fd4911e962,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 990060cf402abc5478cd3fc552b6da64, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
   m_IsPrefabParent: 0
---- !u!1001 &1398655480
+--- !u!1001 &892361864
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -286,97 +287,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4465979934667052, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4465979934667052, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4465979934667052, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4465979934667052, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4465979934667052, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4465979934667052, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4465979934667052, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1678575047398928, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
-      propertyPath: m_Name
-      value: Player4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4465979934667052, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
-      objectReference: {fileID: 0}
-    - target: {fileID: 23717194790798994, guid: c1a85bd0881d8404b90363fd4911e962,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: b7b4857bff94d9147b5ef26fdcdef56e, type: 2}
-    - target: {fileID: 23041339633061890, guid: c1a85bd0881d8404b90363fd4911e962,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: da452d6141da74b48a07a590656c8894, type: 2}
-    - target: {fileID: 23710277255273894, guid: c1a85bd0881d8404b90363fd4911e962,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 6199c276c35937542bdd162a773e5245, type: 2}
-    - target: {fileID: 114261872869190434, guid: c1a85bd0881d8404b90363fd4911e962,
-        type: 2}
-      propertyPath: horizontalAxisName
-      value: kj3_p1_LR
-      objectReference: {fileID: 0}
-    - target: {fileID: 114261872869190434, guid: c1a85bd0881d8404b90363fd4911e962,
-        type: 2}
-      propertyPath: verticalAxisName
-      value: kj3_p1_FB
-      objectReference: {fileID: 0}
-    - target: {fileID: 114261872869190434, guid: c1a85bd0881d8404b90363fd4911e962,
-        type: 2}
-      propertyPath: dodgeHorizAxisName
-      value: kj3_p1_SLR
-      objectReference: {fileID: 0}
-    - target: {fileID: 114261872869190434, guid: c1a85bd0881d8404b90363fd4911e962,
-        type: 2}
-      propertyPath: dodgeVertAxisName
-      value: kj3_p1_SFB
-      objectReference: {fileID: 0}
-    - target: {fileID: 114261872869190434, guid: c1a85bd0881d8404b90363fd4911e962,
-        type: 2}
-      propertyPath: chargeButtonName
-      value: kj3_p1_CH
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
-  m_IsPrefabParent: 0
---- !u!1001 &1545556955
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4465979934667052, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4465979934667052, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
+      value: 2.38
       objectReference: {fileID: 0}
     - target: {fileID: 4465979934667052, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
       propertyPath: m_LocalPosition.z
@@ -402,15 +313,35 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114261872869190434, guid: c1a85bd0881d8404b90363fd4911e962,
+        type: 2}
+      propertyPath: horizontalAxisName
+      value: kj3_p3_LR
+      objectReference: {fileID: 0}
+    - target: {fileID: 114261872869190434, guid: c1a85bd0881d8404b90363fd4911e962,
+        type: 2}
+      propertyPath: verticalAxisName
+      value: kj3_p3_FB
+      objectReference: {fileID: 0}
+    - target: {fileID: 114261872869190434, guid: c1a85bd0881d8404b90363fd4911e962,
+        type: 2}
+      propertyPath: dodgeHorizAxisName
+      value: kj3_p3_SLR
+      objectReference: {fileID: 0}
+    - target: {fileID: 114261872869190434, guid: c1a85bd0881d8404b90363fd4911e962,
+        type: 2}
+      propertyPath: dodgeVertAxisName
+      value: kj3_p3_SFB
+      objectReference: {fileID: 0}
+    - target: {fileID: 114261872869190434, guid: c1a85bd0881d8404b90363fd4911e962,
+        type: 2}
+      propertyPath: chargeButtonName
+      value: kj3_p3_CH
+      objectReference: {fileID: 0}
     - target: {fileID: 1678575047398928, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
       propertyPath: m_Name
       value: Player3
       objectReference: {fileID: 0}
-    - target: {fileID: 23717194790798994, guid: c1a85bd0881d8404b90363fd4911e962,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 2732ce0894e9d5640bae2226660014a3, type: 2}
     - target: {fileID: 23710277255273894, guid: c1a85bd0881d8404b90363fd4911e962,
         type: 2}
       propertyPath: m_Materials.Array.data[0]
@@ -421,31 +352,101 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: e727d79a527b26d429ba08300b09aff6, type: 2}
+    - target: {fileID: 23717194790798994, guid: c1a85bd0881d8404b90363fd4911e962,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2732ce0894e9d5640bae2226660014a3, type: 2}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1001 &1681003404
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4465979934667052, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4465979934667052, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 2.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 4465979934667052, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4465979934667052, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4465979934667052, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4465979934667052, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4465979934667052, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4465979934667052, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4465979934667052, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
     - target: {fileID: 114261872869190434, guid: c1a85bd0881d8404b90363fd4911e962,
         type: 2}
       propertyPath: horizontalAxisName
-      value: kj3_p1_LR
+      value: kj3_p4_LR
       objectReference: {fileID: 0}
     - target: {fileID: 114261872869190434, guid: c1a85bd0881d8404b90363fd4911e962,
         type: 2}
       propertyPath: verticalAxisName
-      value: kj3_p1_FB
+      value: kj3_p4_FB
       objectReference: {fileID: 0}
     - target: {fileID: 114261872869190434, guid: c1a85bd0881d8404b90363fd4911e962,
         type: 2}
       propertyPath: dodgeHorizAxisName
-      value: kj3_p1_SLR
+      value: kj3_p4_SLR
       objectReference: {fileID: 0}
     - target: {fileID: 114261872869190434, guid: c1a85bd0881d8404b90363fd4911e962,
         type: 2}
       propertyPath: dodgeVertAxisName
-      value: kj3_p1_SFB
+      value: kj3_p4_SFB
       objectReference: {fileID: 0}
     - target: {fileID: 114261872869190434, guid: c1a85bd0881d8404b90363fd4911e962,
         type: 2}
       propertyPath: chargeButtonName
-      value: kj3_p1_CH
+      value: kj3_p4_CH
       objectReference: {fileID: 0}
+    - target: {fileID: 1678575047398928, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
+      propertyPath: m_Name
+      value: Player4
+      objectReference: {fileID: 0}
+    - target: {fileID: 23710277255273894, guid: c1a85bd0881d8404b90363fd4911e962,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6199c276c35937542bdd162a773e5245, type: 2}
+    - target: {fileID: 23041339633061890, guid: c1a85bd0881d8404b90363fd4911e962,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: da452d6141da74b48a07a590656c8894, type: 2}
+    - target: {fileID: 23717194790798994, guid: c1a85bd0881d8404b90363fd4911e962,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b7b4857bff94d9147b5ef26fdcdef56e, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
   m_IsPrefabParent: 0
