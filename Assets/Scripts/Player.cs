@@ -132,6 +132,8 @@ public class Player : MonoBehaviour
             dodgeStart = Time.time;
             rb.velocity = step.normalized * dodgeScale;
             dodgePosition = transform.position;
+
+            anim.SetTrigger("Dodge");
         }
 
         if (state == PlayerState.Win)
@@ -241,6 +243,7 @@ public class Player : MonoBehaviour
                                     {
                                         Debug.Log("DODGED");
                                         dodged = true;
+                                        break;
                                     }
                                 }
                             
@@ -255,11 +258,14 @@ public class Player : MonoBehaviour
                         state = PlayerState.Default;
                         dodged = false;
                         hasCharge = true;
+
+                        anim.SetTrigger("DodgeSuccessful");
                     }
                     else
                     {
                         Debug.Log("Recovering");
                         state = PlayerState.Recovering;
+                        anim.SetTrigger("DodgeFailure");
                     }
                     dodgeEnd = Time.time;
                     rb.velocity = new Vector3(0, 0, 0);
