@@ -1,72 +1,36 @@
 fileFormatVersion: 2
-guid: 0de0bc1f054accc4fa8217855ded7055
-timeCreated: 1494113945
+guid: b9213994aab6eb34589e99feccfe5b94
+timeCreated: 1494175158
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: Text
-    100004: Text.001
-    100006: Text.002
-    100008: Text.003
-    100010: Text.004
-    100012: Text.005
-    100014: Text.006
-    100016: Text.007
-    100018: Text.008
-    100020: Text.009
-    100022: Text.010
-    100024: Text.011
-    400000: //RootNode
-    400002: Text
-    400004: Text.001
-    400006: Text.002
-    400008: Text.003
-    400010: Text.004
-    400012: Text.005
-    400014: Text.006
-    400016: Text.007
-    400018: Text.008
-    400020: Text.009
-    400022: Text.010
-    400024: Text.011
-    2300000: Text
-    2300002: Text.001
-    2300004: Text.002
-    2300006: Text.003
-    2300008: Text.004
-    2300010: Text.005
-    2300012: Text.006
-    2300014: Text.007
-    2300016: Text.008
-    2300018: Text.009
-    2300020: Text.010
-    2300022: Text.011
-    3300000: Text
-    3300002: Text.001
-    3300004: Text.002
-    3300006: Text.003
-    3300008: Text.004
-    3300010: Text.005
-    3300012: Text.006
-    3300014: Text.007
-    3300016: Text.008
-    3300018: Text.009
-    3300020: Text.010
-    3300022: Text.011
-    4300000: Text
-    4300002: Text.001
-    4300004: Text.002
-    4300006: Text.003
-    4300008: Text.004
-    4300010: Text.005
-    4300012: Text.006
-    4300014: Text.007
-    4300016: Text.008
-    4300018: Text.009
-    4300020: Text.010
-    4300022: Text.011
+    100000: Camera
+    100002: Lamp
+    100004: Text.000
+    100006: Text.009
+    100008: //RootNode
+    100010: Text
+    100012: Text.001
+    400000: Camera
+    400002: Lamp
+    400004: Text.000
+    400006: Text.009
+    400008: //RootNode
+    400010: Text
+    400012: Text.001
+    2300000: Text.000
+    2300002: Text.009
+    2300004: Text
+    2300006: Text.001
+    3300000: Text.000
+    3300002: Text.009
+    3300004: Text
+    3300006: Text.001
+    4300000: Text.009
+    4300002: Text.000
+    4300004: Text
+    4300006: Text.001
   materials:
     importMaterials: 0
     materialName: 0

@@ -31,9 +31,11 @@ public class Player : MonoBehaviour
     public float afterChargedSpeed = 350;
 
     [Header("Extra")]
+    public int playerId;
     public float tauntLength = 3;
     public float maxSpeedForTaunt = 0.5f;
     public float dodgeTolerance = 3;
+    public float timeBeforeMovingCamera = 2;
     public float timeForWinCamera = 1;
     public Vector3 camLocalDist = new Vector3(0, 1.5f, 5);
     public float timeForRestart = 3;
@@ -415,7 +417,7 @@ public class Player : MonoBehaviour
 
         state = PlayerState.Win;
 
-        winTime = Time.time;
+        winTime = Time.time + timeBeforeMovingCamera;
         winCameraStartPos = cam.transform.position;
         winCameraStartRot = cam.transform.forward;
     }
