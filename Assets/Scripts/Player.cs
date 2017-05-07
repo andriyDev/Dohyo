@@ -46,6 +46,12 @@ public class Player : MonoBehaviour
     public GameObject chargeMarker;
     public GameObject noChargeMarker;
     public GameObject birdStuffs;
+    public ParticleSystem leftFootPS;
+    public ParticleSystem rightFootPS;
+    public ParticleSystem bellyPS;
+    public ParticleSystem backPS;
+    public ParticleSystem chargePS;
+    public ParticleSystem dodgeSuccessPS;
 
     // Movement variables
     private Vector3 lastMove = Vector3.zero;
@@ -406,4 +412,10 @@ public class Player : MonoBehaviour
         winCameraStartPos = cam.transform.position;
         winCameraStartRot = cam.transform.forward;
     }
+
+    private void EmitAtLeftFoot(int count) { leftFootPS.Emit(count); }
+    private void EmitAtRightFoot(int count) { rightFootPS.Emit(count); }
+    private void EmitAtBelly(int count) { bellyPS.Emit(count); }
+    private void EmitAtBack(int count) { backPS.Emit(count); }
+    private void EmitDodgeSuccess(int count) { dodgeSuccessPS.Emit(count); }
 }
