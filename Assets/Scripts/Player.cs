@@ -331,6 +331,11 @@ public class Player : MonoBehaviour
     
     private void Lost()
     {
+        anim.SetBool("Charging", false);
+        anim.SetFloat("Speed", 0);
+        anim.SetBool("Walking", false);
+        anim.SetBool("Taunting", false);
+
         anim.SetTrigger("Death");
         state = PlayerState.GameOver;
 
@@ -358,6 +363,11 @@ public class Player : MonoBehaviour
 
     private void Win()
     {
+        anim.SetBool("Charging", false);
+        anim.SetFloat("Speed", 0);
+        anim.SetBool("Walking", false);
+        anim.SetBool("Taunting", false);
+
         state = PlayerState.Win;
 
         winTime = Time.time;
