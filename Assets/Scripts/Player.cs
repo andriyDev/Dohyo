@@ -59,6 +59,16 @@ public class Player : MonoBehaviour
     public ParticleSystem dodgeSuccessPS;
     public ParticleSystem tauntPS;
     public ParticleSystem tauntCompletePS;
+    
+    //[Header("Audio")]
+    //public float birdFadeSpeed = 1;
+
+    [Header("Audio References")]
+    public AudioSource dodgeSound;
+    public AudioSource dodgeSuccessSound;
+    public AudioSource dodgeFailureSound;
+    public AudioSource loseSound;
+    public AudioSource bounceSound;
 
     // Movement variables
     private Vector3 lastMove = Vector3.zero;
@@ -153,6 +163,7 @@ public class Player : MonoBehaviour
             dodgePosition = transform.position;
             lastMove = step.normalized;
             anim.SetTrigger("Dodge");
+            dodgeSound.Play();
         }
 
         if (state == PlayerState.Win)
@@ -176,7 +187,6 @@ public class Player : MonoBehaviour
 
             if(Time.time - winTime > timeForRestart)
             {
-                Debug.Log("Hello");
                 WinMenu w = FindObjectOfType<WinMenu>();
                 w.winningPlayer = playerId;
                 w.transform.position = transform.position + (Vector3)(transform.localToWorldMatrix * winMenuLocalDist);
@@ -293,11 +303,13 @@ public class Player : MonoBehaviour
                         state = PlayerState.Default;
                         dodged = false;
                         anim.SetTrigger("DodgeSuccessful");
+                        dodgeSuccessSound.Play();
                     }
                     else
                     {
                         state = PlayerState.Recovering;
                         anim.SetTrigger("DodgeFailure");
+                        dodgeFailureSound.Play();
                     }
                     dodgeEnd = Time.time;
                 }
@@ -371,6 +383,7 @@ public class Player : MonoBehaviour
                 {
                     float bumpFactor = (state == PlayerState.Charging ? 0.2f : 1);
                     this.rb.velocity += (other.transform.position - this.transform.position).normalized * bumpScale * bumpFactor;
+                    bounceSound.Play();
                 }
                 if (other.state == PlayerState.Charging && state != PlayerState.Charging)
                 {
@@ -473,6 +486,13 @@ public class Player : MonoBehaviour
         winCameraStartPos = cam.transform.position;
         winCameraStartRot = cam.transform.forward;
     }
+
+    private void PlayLoseSound()
+    {
+        loseSound.Play();
+    }
+
+    public PlayerState GetState() { return state; }
 
     private void EmitAtLeftFoot(int count) { leftFootPS.Emit(count); }
     private void EmitAtRightFoot(int count) { rightFootPS.Emit(count); }

@@ -33,6 +33,8 @@ public class Menu : MonoBehaviour
 
     public GameObject[] TransferCameraPositions;
 
+    public AudioSource menuElementChangeSound;
+
     public float cameraLerpTime = 1.5f;
 
     public float inputTime = .25f;
@@ -102,6 +104,7 @@ public class Menu : MonoBehaviour
             {
                 if(Input.GetAxis("menu_select") > 0)
                 {
+                    menuElementChangeSound.Play();
                     timeSinceInput = Time.time;
                     instructionsShown = false;
                 }
@@ -111,12 +114,13 @@ public class Menu : MonoBehaviour
             if(Input.GetAxis("menu_select") > 0)
             {
                 timeSinceInput = Time.time;
-                if(selectOptions == 0 || selectOptions == 1)
+                if (selectOptions == 0 || selectOptions == 1)
                 {
                     Play();
                 }
                 else if (selectOptions == 2)
                 {
+                    menuElementChangeSound.Play();
                     HowToPlay();
                 }
                 else if (selectOptions == 3)
@@ -128,7 +132,8 @@ public class Menu : MonoBehaviour
             {
                 timeSinceInput = Time.time;
                 selectOptions -= (int)Mathf.Sign(Input.GetAxis("menu_move_vert"));
-                if(selectOptions > 3)
+                menuElementChangeSound.Play();
+                if (selectOptions > 3)
                 {
                     selectOptions = 0;
                 }
@@ -140,6 +145,7 @@ public class Menu : MonoBehaviour
             else if(Mathf.Abs(Input.GetAxis("menu_move_horiz")) > 0)
             {
                 timeSinceInput = Time.time;
+                menuElementChangeSound.Play();
                 if (selectOptions == 0)
                 {
                     playerCount += (int)Mathf.Sign(Input.GetAxis("menu_move_horiz"));
@@ -162,9 +168,11 @@ public class Menu : MonoBehaviour
 
     void Play()
     {
-        playerCount += 2;
+        int p = playerCount + 2;
 
-        desiredPlayerScene = (ctrlType ? "J4_" : "KJ3_") + (playerCount) + "P";
+        desiredPlayerScene = (ctrlType ? "J4_" : "KJ3_") + p + "P";
+
+        FindObjectOfType<GameAudio>().PlayGameStartSound();
 
         SceneManager.LoadScene(desiredPlayerScene, LoadSceneMode.Additive);
 

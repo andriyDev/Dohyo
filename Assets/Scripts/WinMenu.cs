@@ -20,6 +20,9 @@ public class WinMenu : MonoBehaviour
 
     public float inputTime = .25f;
 
+    public AudioSource playAgainSound;
+    public AudioSource menuElementChangeSound;
+
     public int winningPlayer;
 
     private float timeSinceInput = 0;
@@ -58,6 +61,7 @@ public class WinMenu : MonoBehaviour
             }
             else if(Mathf.Abs(Input.GetAxis("menu_move_vert")) > 0)
             {
+                menuElementChangeSound.Play();
                 timeSinceInput = Time.time;
                 selectedOption = !selectedOption;
             }
@@ -77,6 +81,7 @@ public class WinMenu : MonoBehaviour
         SceneManager.sceneUnloaded -= SceneUnloaded;
         Camera.main.transform.position = GameCameraPosition.transform.position;
         Camera.main.transform.forward = GameCameraPosition.transform.forward;
+        playAgainSound.Play();
     }
 
     void BackToMenu()
