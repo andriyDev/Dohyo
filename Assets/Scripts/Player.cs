@@ -194,7 +194,10 @@ public class Player : MonoBehaviour
 
         float moveHorizontal = Input.GetAxis(horizontalAxisName);
         float moveVertical = Input.GetAxis(verticalAxisName);
-
+        if (state != PlayerState.Dodging)
+        {
+            dodged = false;
+        }
         switch (state)
         {
             case PlayerState.Default:
@@ -270,7 +273,7 @@ public class Player : MonoBehaviour
                             {
                                 poi = new Vector3(poi.x / poi.z, transform.position.y, poi.y / poi.z);
                                 Debug.Log(poi);
-                                if (((poi - transform.position).magnitude < (dodgePosition - transform.position).magnitude + dodgeTolerance)
+                                if (((poi - transform.position).magnitude < (dodgePosition - transform.position).magnitude)
                                     && ((poi - player.transform.position).magnitude < (player.chargePosition - player.transform.position).magnitude + dodgeTolerance))
                                     {
                                         Debug.Log("DODGED");
@@ -391,6 +394,7 @@ public class Player : MonoBehaviour
                 if (state == PlayerState.Dodging)
                 {
                     state = PlayerState.DodgeBumped;
+                    dodged = false;
                 }
             }
         }
