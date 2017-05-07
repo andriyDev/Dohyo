@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PlayerState { Default, Taunting, Charging, Decelerating, BeingCharged, AfterCharged, Dodging, Recovering, GameOver, Win };
+public enum PlayerState { Default, Taunting, Charging, Decelerating, BeingCharged, AfterCharged, Dodging, DodgeBumped, Recovering, GameOver, Win };
 
 [RequireComponent(typeof(Rigidbody), typeof(Animator))]
 public class Player : MonoBehaviour
@@ -141,7 +141,7 @@ public class Player : MonoBehaviour
             rb.velocity = step.normalized * dodgeScale;
             transform.forward = step.normalized;
             dodgePosition = transform.position;
-
+            lastMove = step.normalized;
             anim.SetTrigger("Dodge");
         }
 
@@ -184,7 +184,7 @@ public class Player : MonoBehaviour
                 lastMove = LocalToGlobal(lastMove);
                 float deceleration = (state == PlayerState.AfterCharged ? afterChargedDecelerationAmt : decelerationSpeed);
                 float usedSpeed = (state == PlayerState.AfterCharged ? afterChargedSpeed : speed);
-                if (state == PlayerState.Default && lastMove.sqrMagnitude == 0)
+                if (lastMove.sqrMagnitude == 0)
                 {
                     DoDeceleration(deceleration);
                 }
@@ -217,7 +217,6 @@ public class Player : MonoBehaviour
                 if (Time.time - chargeStart > chargeTime)
                 {
                     state = PlayerState.Default;
-
                     anim.SetBool("Charging", false);
                 }
                 break;
@@ -247,7 +246,7 @@ public class Player : MonoBehaviour
                             {
                                 poi = new Vector3(poi.x / poi.z, transform.position.y, poi.y / poi.z);
                                 Debug.Log(poi);
-                                if ((poi - transform.position).magnitude < (dodgePosition - transform.position).magnitude
+                                if (((poi - transform.position).magnitude < (dodgePosition - transform.position).magnitude + dodgeTolerance)
                                     && ((poi - player.transform.position).magnitude < (player.chargePosition - player.transform.position).magnitude + dodgeTolerance))
                                     {
                                         Debug.Log("DODGED");
@@ -267,21 +266,27 @@ public class Player : MonoBehaviour
                         state = PlayerState.Default;
                         dodged = false;
                         hasCharge = true;
-
                         anim.SetTrigger("DodgeSuccessful");
                     }
                     else
                     {
-                        Debug.Log("Recovering");
                         state = PlayerState.Recovering;
                         anim.SetTrigger("DodgeFailure");
                     }
                     dodgeEnd = Time.time;
-                    rb.velocity = new Vector3(0, 0, 0);
+                }
+                break;
+            case PlayerState.DodgeBumped:
+                DoDeceleration(decelerationSpeed);
+                if (Time.time - dodgeStart > dodgeTime)
+                {
+                    state = PlayerState.Recovering;
+                    anim.SetTrigger("DodgeFailure");
+                    dodgeEnd = Time.time;
                 }
                 break;
             case PlayerState.Recovering:
-                
+                DoDeceleration(decelerationSpeed);
                 if (Time.time - dodgeEnd > dodgeCooldown)
                 {
                     state = PlayerState.Default;
@@ -335,12 +340,23 @@ public class Player : MonoBehaviour
             Player other = collision.gameObject.GetComponent<Player>();
             if (other)
             {
-                this.rb.velocity += (other.transform.position - this.transform.position).normalized*bumpScale;
+                if (state == PlayerState.Charging ||  other.state != PlayerState.Charging)
+                {
+                    float bumpFactor = (state == PlayerState.Charging ? 0.2f : 1);
+                    this.rb.velocity += (other.transform.position - this.transform.position).normalized * bumpScale * bumpFactor;
+                }
                 if (other.state == PlayerState.Charging && state != PlayerState.Charging)
                 {
+                    other.state = PlayerState.Default;
+                    other.anim.SetBool("Charging", false);
                     state = PlayerState.BeingCharged;
                     birdStuffs.SetActive(true);
                     chargedBy = other;
+                }
+                if (state == PlayerState.Dodging)
+                {
+                    state = PlayerState.DodgeBumped;
+
                 }
             }
         }
