@@ -48,7 +48,7 @@ ModelImporter:
     4300012: Text.006
     4300014: Text.007
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:
