@@ -182,7 +182,7 @@ public class Player : MonoBehaviour
                 lastMove = LocalToGlobal(lastMove);
                 float deceleration = (state == PlayerState.AfterCharged ? afterChargedDecelerationAmt : decelerationSpeed);
                 float usedSpeed = (state == PlayerState.AfterCharged ? afterChargedSpeed : speed);
-                if (lastMove.sqrMagnitude == 0)
+                if (state == PlayerState.Default && lastMove.sqrMagnitude == 0)
                 {
                     DoDeceleration(deceleration);
                 }
