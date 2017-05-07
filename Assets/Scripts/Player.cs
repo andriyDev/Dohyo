@@ -38,6 +38,7 @@ public class Player : MonoBehaviour
     public float timeBeforeMovingCamera = 2;
     public float timeForWinCamera = 1;
     public Vector3 camLocalDist = new Vector3(0, 1.5f, 5);
+    public Vector3 winMenuLocalDist = new Vector3(0, 1.5f, 5);
     public float timeForRestart = 3;
     public float bumpScale = 1;
 
@@ -101,6 +102,11 @@ public class Player : MonoBehaviour
 	
 	private void Update ()
     {
+        if(FindObjectOfType<Menu>() != null)
+        {
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
@@ -168,13 +174,22 @@ public class Player : MonoBehaviour
 
             if(Time.time - winTime > timeForRestart)
             {
-                // TODO: DO A RESTART
+                Debug.Log("Hello");
+                WinMenu w = FindObjectOfType<WinMenu>();
+                w.winningPlayer = playerId;
+                w.transform.position = transform.position + (Vector3)(transform.localToWorldMatrix * winMenuLocalDist);
+                w.transform.forward = transform.forward;
             }
         }
     }
 
     private void FixedUpdate()
     {
+        if (FindObjectOfType<Menu>() != null)
+        {
+            return;
+        }
+
         float moveHorizontal = Input.GetAxis(horizontalAxisName);
         float moveVertical = Input.GetAxis(verticalAxisName);
 

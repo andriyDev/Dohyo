@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class Menu : MonoBehaviour
     public GameObject kj3_p1;
     public GameObject kj3_p2;
     public GameObject kj3_p3;
+    public GameObject kj3_s;
 
     public GameObject j4_p2;
     public GameObject j4_p3;
@@ -21,11 +23,17 @@ public class Menu : MonoBehaviour
     public GameObject kj3;
     public GameObject j4;
 
+    public GameObject instructionQuad;
+
     public GameObject ticker;
     public GameObject tickerPlayerTgt;
     public GameObject tickerCtrlTgt;
     public GameObject tickerHTPTgt;
     public GameObject tickerQuitTgt;
+
+    public GameObject[] TransferCameraPositions;
+
+    public float cameraLerpTime = 1.5f;
 
     public float inputTime = .25f;
 
@@ -36,12 +44,23 @@ public class Menu : MonoBehaviour
 
     private float timeSinceInput = 0;
 
+    private bool instructionsShown;
+
     void Start ()
     {
-		
+        SceneManager.sceneLoaded += LoadedScene;
+        SceneManager.LoadScene("Dohyo", LoadSceneMode.Additive);
 	}
-	
-	void Update ()
+
+    void LoadedScene(Scene s, LoadSceneMode l)
+    {
+        SceneManager.SetActiveScene(s);
+        Camera.main.transform.position = TransferCameraPositions[0].transform.position;
+        Camera.main.transform.forward = TransferCameraPositions[0].transform.forward;
+        SceneManager.sceneLoaded -= LoadedScene;
+    }
+
+    void Update ()
     {
         p2.SetActive(playerCount == 0);
         p3.SetActive(playerCount == 1);
@@ -53,6 +72,7 @@ public class Menu : MonoBehaviour
         kj3_p1.SetActive(playerCount == 0);
         kj3_p2.SetActive(playerCount == 1);
         kj3_p3.SetActive(playerCount == 2);
+        kj3_s.SetActive(playerCount > 0);
 
         j4_p2.SetActive(playerCount == 0);
         j4_p3.SetActive(playerCount == 1);
@@ -74,8 +94,20 @@ public class Menu : MonoBehaviour
                 break;
         }
 
+        instructionQuad.SetActive(instructionsShown);
+
         if(Time.time - timeSinceInput > inputTime)
         {
+            if(instructionsShown)
+            {
+                if(Input.GetAxis("menu_select") > 0)
+                {
+                    timeSinceInput = Time.time;
+                    instructionsShown = false;
+                }
+                return;
+            }
+
             if(Input.GetAxis("menu_select") > 0)
             {
                 timeSinceInput = Time.time;
@@ -111,13 +143,13 @@ public class Menu : MonoBehaviour
                 if (selectOptions == 0)
                 {
                     playerCount += (int)Mathf.Sign(Input.GetAxis("menu_move_horiz"));
-                    if (playerCount > 3)
+                    if (playerCount > 2)
                     {
                         playerCount = 0;
                     }
                     else if (playerCount < 0)
                     {
-                        playerCount = 3;
+                        playerCount = 2;
                     }
                 }
                 else if (selectOptions == 1)
@@ -133,15 +165,40 @@ public class Menu : MonoBehaviour
         playerCount += 2;
 
         desiredPlayerScene = (ctrlType ? "J4_" : "KJ3_") + (playerCount) + "P";
+
+        SceneManager.LoadScene(desiredPlayerScene, LoadSceneMode.Additive);
+
+        StartCoroutine(LerpPlayCamera());
     }
 
     void HowToPlay()
     {
-
+        instructionsShown = true;
     }
 
     void Quit()
     {
+        Application.Quit();
+    }
 
+    IEnumerator LerpPlayCamera()
+    {
+        float startTime;
+
+        for (int i = 1; i < TransferCameraPositions.Length; i++)
+        {
+            startTime = Time.time;
+
+            while (Time.time - startTime < cameraLerpTime)
+            {
+                float time = (Time.time - startTime) / cameraLerpTime;
+                Camera.main.transform.position = Vector3.Lerp(TransferCameraPositions[i - 1].transform.position, TransferCameraPositions[i].transform.position, time);
+                Camera.main.transform.forward = Vector3.Slerp(TransferCameraPositions[i - 1].transform.forward, TransferCameraPositions[i].transform.forward, time);
+                yield return null;
+            }
+        }
+        
+        yield return null;
+        SceneManager.UnloadSceneAsync("MenuStuff");
     }
 }
