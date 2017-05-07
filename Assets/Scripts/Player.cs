@@ -37,6 +37,7 @@ public class Player : MonoBehaviour
     public float timeForWinCamera = 1;
     public Vector3 camLocalDist = new Vector3(0, 1.5f, 5);
     public float timeForRestart = 3;
+    public float bumpScale = 1;
 
     [Header("Model")]
     public float modelRotationSpeed = 10;
@@ -62,6 +63,7 @@ public class Player : MonoBehaviour
     private float dodgeEnd = 0;
     private bool dodged = false;
     private Vector3 dodgePosition;
+    private Vector3 chargePosition;
     private float tauntStart = 0;
 
     private Player chargedBy;
@@ -109,6 +111,7 @@ public class Player : MonoBehaviour
                 anim.SetBool("Charging", true);
                 hasCharge = false;
                 chargeStart = Time.time;
+                chargePosition = transform.position;
                 if (lastMove.magnitude == 0)
                 {
                     lastMove = transform.forward.normalized;
@@ -140,7 +143,7 @@ public class Player : MonoBehaviour
             }
             else
             {
-                cam.transform.position = transform.position + new Vector3(0, 1.5f, 0) + (Vector3)(transform.localToWorldMatrix * new Vector3(0, 0, 5));
+                cam.transform.position = transform.position + (Vector3)(transform.localToWorldMatrix * camLocalDist);
                 cam.transform.forward = -transform.forward;
 
                 if(!startedWinAnimation)
@@ -217,13 +220,33 @@ public class Player : MonoBehaviour
             case PlayerState.Dodging:
                 if (!dodged)
                 {
-                    Vector3 dir = dodgePosition - transform.position;
-                    RaycastHit hitInfo;
-                    if (Physics.BoxCast(transform.position + dir / 2, new Vector3(dodgeTolerance, 0.5f, dir.magnitude/2), dir, out hitInfo)) {
-                        Debug.Log("DODGED!");
-                        Player target = hitInfo.rigidbody.GetComponent<Player>();
-                        dodged = target != this && target.state == PlayerState.Charging;
+                    Vector3 a = new Vector3(dodgePosition.x, dodgePosition.z, 1);
+                    Vector3 b = new Vector3(transform.position.x, transform.position.z, 1);
+                    Vector3 dodgeLine = Vector3.Cross(a, b);
+                    Player[] players = FindObjectsOfType<Player>();
+                    foreach (Player player in players)
+                    {
+                        if (player != this && player.state == PlayerState.Charging)
+                        {
+                            a = new Vector3(player.chargePosition.x, player.chargePosition.z, 1);
+                            b = new Vector3(player.transform.position.x, player.transform.position.z, 1);
+                            Vector3 chargeLine = Vector3.Cross(a, b);
+                            Vector3 poi = Vector3.Cross(dodgeLine, chargeLine);
+                            if (poi.z != 0)
+                            {
+                                poi = new Vector3(poi.x / poi.z, transform.position.y, poi.y / poi.z);
+                                Debug.Log(poi);
+                                if ((poi - transform.position).magnitude < (dodgePosition - transform.position).magnitude
+                                    && ((poi - player.transform.position).magnitude < (player.chargePosition - player.transform.position).magnitude + dodgeTolerance))
+                                    {
+                                        Debug.Log("DODGED");
+                                        dodged = true;
+                                    }
+                                }
+                            
+                        }
                     }
+
                 }
                 if (Time.time - dodgeStart > dodgeTime)
                 {
@@ -235,6 +258,7 @@ public class Player : MonoBehaviour
                     }
                     else
                     {
+                        Debug.Log("Recovering");
                         state = PlayerState.Recovering;
                     }
                     dodgeEnd = Time.time;
@@ -242,7 +266,7 @@ public class Player : MonoBehaviour
                 }
                 break;
             case PlayerState.Recovering:
-                Debug.Log("Recovering");
+                
                 if (Time.time - dodgeEnd > dodgeCooldown)
                 {
                     state = PlayerState.Default;
@@ -296,6 +320,7 @@ public class Player : MonoBehaviour
             Player other = collision.gameObject.GetComponent<Player>();
             if (other)
             {
+                this.rb.velocity += (other.transform.position - this.transform.position).normalized*bumpScale;
                 if (other.state == PlayerState.Charging && state != PlayerState.Charging)
                 {
                     state = PlayerState.BeingCharged;
