@@ -180,6 +180,11 @@ Prefab:
       propertyPath: chargeButtonName
       value: kj3_p1_CH
       objectReference: {fileID: 0}
+    - target: {fileID: 114261872869190434, guid: c1a85bd0881d8404b90363fd4911e962,
+        type: 2}
+      propertyPath: playerId
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
   m_IsPrefabParent: 0
@@ -271,6 +276,11 @@ Prefab:
       propertyPath: chargeButtonName
       value: kj3_p2_CH
       objectReference: {fileID: 0}
+    - target: {fileID: 114261872869190434, guid: c1a85bd0881d8404b90363fd4911e962,
+        type: 2}
+      propertyPath: playerId
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
   m_IsPrefabParent: 0
@@ -357,6 +367,11 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 2732ce0894e9d5640bae2226660014a3, type: 2}
+    - target: {fileID: 114261872869190434, guid: c1a85bd0881d8404b90363fd4911e962,
+        type: 2}
+      propertyPath: playerId
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
   m_IsPrefabParent: 0
@@ -447,6 +462,11 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: b7b4857bff94d9147b5ef26fdcdef56e, type: 2}
+    - target: {fileID: 114261872869190434, guid: c1a85bd0881d8404b90363fd4911e962,
+        type: 2}
+      propertyPath: playerId
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c1a85bd0881d8404b90363fd4911e962, type: 2}
   m_IsPrefabParent: 0

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WinMenu : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class WinMenu : MonoBehaviour
     public GameObject ticker;
     public GameObject playAgainTgtPos;
     public GameObject backToMenuTgtPos;
+
+    public GameObject GameCameraPosition;
 
     public float inputTime = .25f;
 
@@ -39,11 +42,12 @@ public class WinMenu : MonoBehaviour
 
         ticker.transform.position = selectedOption ? backToMenuTgtPos.transform.position : playAgainTgtPos.transform.position;
 
-        if(Time.time - timeSinceInput > inputTime)
+        if(winningPlayer != 0 && Time.time - timeSinceInput > inputTime)
         {
             if (Input.GetAxis("menu_select") > 0)
             {
-                if(selectedOption)
+                timeSinceInput = Time.time;
+                if (selectedOption)
                 {
                     BackToMenu();
                 }
@@ -52,16 +56,31 @@ public class WinMenu : MonoBehaviour
                     PlayAgain();
                 }
             }
+            else if(Mathf.Abs(Input.GetAxis("menu_move_vert")) > 0)
+            {
+                timeSinceInput = Time.time;
+                selectedOption = !selectedOption;
+            }
         }
     }
 
     void PlayAgain()
     {
+        SceneManager.sceneUnloaded += SceneUnloaded;
+        SceneManager.UnloadSceneAsync(Menu.desiredPlayerScene);
+    }
 
+    void SceneUnloaded(Scene s)
+    {
+        winningPlayer = 0;
+        SceneManager.LoadScene(Menu.desiredPlayerScene, LoadSceneMode.Additive);
+        SceneManager.sceneUnloaded -= SceneUnloaded;
+        Camera.main.transform.position = GameCameraPosition.transform.position;
+        Camera.main.transform.forward = GameCameraPosition.transform.forward;
     }
 
     void BackToMenu()
     {
-
+        SceneManager.LoadScene("MenuStuff");
     }
 }
