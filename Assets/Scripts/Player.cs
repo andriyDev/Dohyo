@@ -387,6 +387,11 @@ public class Player : MonoBehaviour
     
     private void Lost()
     {
+        if(state == PlayerState.GameOver || state == PlayerState.Win)
+        {
+            return;
+        }
+
         anim.SetBool("Charging", false);
         anim.SetFloat("Speed", 0);
         anim.SetBool("Walking", false);
