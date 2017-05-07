@@ -32,7 +32,7 @@ ModelImporter:
     4300004: Icosphere.001
     4300006: Icosphere.003
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:

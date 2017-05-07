@@ -2025,6 +2025,13 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_GenerateMotionCurves: 0
   m_Events:
+  - time: 0
+    functionName: EmitTauntParticles
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 50
+    messageOptions: 0
   - time: 0.28301886
     functionName: EmitAtRightFoot
     data: 
@@ -2032,10 +2039,24 @@ AnimationClip:
     floatParameter: 0
     intParameter: 40
     messageOptions: 0
+  - time: 0.33962265
+    functionName: EmitTauntParticles
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 50
+    messageOptions: 0
   - time: 0.5471698
     functionName: EmitAtLeftFoot
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 40
+    messageOptions: 0
+  - time: 0.6603774
+    functionName: EmitTauntParticles
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 50
     messageOptions: 0

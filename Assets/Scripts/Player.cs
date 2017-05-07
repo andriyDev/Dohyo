@@ -52,6 +52,8 @@ public class Player : MonoBehaviour
     public ParticleSystem backPS;
     public ParticleSystem chargePS;
     public ParticleSystem dodgeSuccessPS;
+    public ParticleSystem tauntPS;
+    public ParticleSystem tauntCompletePS;
 
     // Movement variables
     private Vector3 lastMove = Vector3.zero;
@@ -418,4 +420,6 @@ public class Player : MonoBehaviour
     private void EmitAtBelly(int count) { bellyPS.Emit(count); }
     private void EmitAtBack(int count) { backPS.Emit(count); }
     private void EmitDodgeSuccess(int count) { dodgeSuccessPS.Emit(count); }
+    private void EmitTauntParticles(int count) { tauntPS.Emit(count); }
+    private void EmitTauntCompleteParticles(int count) { tauntCompletePS.Emit(count); }
 }
