@@ -36,6 +36,11 @@ public class WinMenu : MonoBehaviour
 	
 	void Update ()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+
         menu.SetActive(winningPlayer != 0);
 
         P1.SetActive(winningPlayer == 1);

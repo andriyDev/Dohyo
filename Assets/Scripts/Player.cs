@@ -119,11 +119,6 @@ public class Player : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
-        }
-
         SyncModelToState();
 
         float stepHorizontal = Input.GetAxis(dodgeHorizAxisName);
