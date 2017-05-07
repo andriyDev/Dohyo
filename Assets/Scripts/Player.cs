@@ -273,7 +273,7 @@ public class Player : MonoBehaviour
                             {
                                 poi = new Vector3(poi.x / poi.z, transform.position.y, poi.y / poi.z);
                                 Debug.Log(poi);
-                                if (((poi - transform.position).magnitude < (dodgePosition - transform.position).magnitude)
+                                if (((poi - transform.position).magnitude < (dodgePosition - transform.position).magnitude + dodgeTolerance)
                                     && ((poi - player.transform.position).magnitude < (player.chargePosition - player.transform.position).magnitude + dodgeTolerance))
                                     {
                                         Debug.Log("DODGED");
