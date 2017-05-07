@@ -48,6 +48,8 @@ public class Menu : MonoBehaviour
 
     private bool instructionsShown;
 
+    private bool playing = false;
+
     void Start ()
     {
         SceneManager.sceneLoaded += LoadedScene;
@@ -64,6 +66,11 @@ public class Menu : MonoBehaviour
 
     void Update ()
     {
+        if(playing)
+        {
+            return;
+        }
+
         p2.SetActive(playerCount == 0);
         p3.SetActive(playerCount == 1);
         p4.SetActive(playerCount == 2);
@@ -168,6 +175,7 @@ public class Menu : MonoBehaviour
 
     void Play()
     {
+        playing = true;
         int p = playerCount + 2;
 
         desiredPlayerScene = (ctrlType ? "J4_" : "KJ3_") + p + "P";
