@@ -131,6 +131,7 @@ public class Player : MonoBehaviour
             state = PlayerState.Dodging;
             dodgeStart = Time.time;
             rb.velocity = step.normalized * dodgeScale;
+            transform.forward = step.normalized;
             dodgePosition = transform.position;
 
             anim.SetTrigger("Dodge");
