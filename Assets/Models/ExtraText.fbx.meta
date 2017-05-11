@@ -1,0 +1,234 @@
+fileFormatVersion: 2
+guid: d11c0b2d614bb924da3aa43fb0b0a60d
+timeCreated: 1494517815
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: ControlScheme
+    100002: //RootNode
+    100004: LocalFight
+    100006: LocalPlayers
+    100008: Map
+    100010: OnlineFight
+    100012: Options
+    100014: Players
+    100016: Charge
+    100018: Controls
+    100020: DodgeDown
+    100022: DodgeLeft
+    100024: DodgeRight
+    100026: DodgeUp
+    100028: Dohyo
+    100030: MoveDown
+    100032: MoveLeft
+    100034: MoveRight
+    100036: MoveUp
+    100038: PCTJ
+    100040: Quit
+    100042: DohyoOverline
+    100044: Back
+    100046: Practice
+    100048: ControlsPlayer
+    100050: Dodge
+    100052: Movement
+    100054: Num1
+    100056: Num2
+    100058: Num3
+    100060: Num4
+    100062: Arrow
+    400000: ControlScheme
+    400002: //RootNode
+    400004: LocalFight
+    400006: LocalPlayers
+    400008: Map
+    400010: OnlineFight
+    400012: Options
+    400014: Players
+    400016: Charge
+    400018: Controls
+    400020: DodgeDown
+    400022: DodgeLeft
+    400024: DodgeRight
+    400026: DodgeUp
+    400028: Dohyo
+    400030: MoveDown
+    400032: MoveLeft
+    400034: MoveRight
+    400036: MoveUp
+    400038: PCTJ
+    400040: Quit
+    400042: DohyoOverline
+    400044: Back
+    400046: Practice
+    400048: ControlsPlayer
+    400050: Dodge
+    400052: Movement
+    400054: Num1
+    400056: Num2
+    400058: Num3
+    400060: Num4
+    400062: Arrow
+    2300000: ControlScheme
+    2300002: LocalFight
+    2300004: LocalPlayers
+    2300006: Map
+    2300008: OnlineFight
+    2300010: Options
+    2300012: Players
+    2300014: Charge
+    2300016: Controls
+    2300018: DodgeDown
+    2300020: DodgeLeft
+    2300022: DodgeRight
+    2300024: DodgeUp
+    2300026: Dohyo
+    2300028: MoveDown
+    2300030: MoveLeft
+    2300032: MoveRight
+    2300034: MoveUp
+    2300036: PCTJ
+    2300038: Quit
+    2300040: DohyoOverline
+    2300042: Back
+    2300044: Practice
+    2300046: ControlsPlayer
+    2300048: Dodge
+    2300050: Movement
+    2300052: Num1
+    2300054: Num2
+    2300056: Num3
+    2300058: Num4
+    2300060: Arrow
+    3300000: ControlScheme
+    3300002: LocalFight
+    3300004: LocalPlayers
+    3300006: Map
+    3300008: OnlineFight
+    3300010: Options
+    3300012: Players
+    3300014: Charge
+    3300016: Controls
+    3300018: DodgeDown
+    3300020: DodgeLeft
+    3300022: DodgeRight
+    3300024: DodgeUp
+    3300026: Dohyo
+    3300028: MoveDown
+    3300030: MoveLeft
+    3300032: MoveRight
+    3300034: MoveUp
+    3300036: PCTJ
+    3300038: Quit
+    3300040: DohyoOverline
+    3300042: Back
+    3300044: Practice
+    3300046: ControlsPlayer
+    3300048: Dodge
+    3300050: Movement
+    3300052: Num1
+    3300054: Num2
+    3300056: Num3
+    3300058: Num4
+    3300060: Arrow
+    4300000: LocalFight
+    4300002: OnlineFight
+    4300004: Options
+    4300006: Map
+    4300008: Players
+    4300010: LocalPlayers
+    4300012: ControlScheme
+    4300014: PCTJ
+    4300016: Dohyo
+    4300018: Quit
+    4300020: Controls
+    4300022: MoveUp
+    4300024: MoveDown
+    4300026: MoveLeft
+    4300028: MoveRight
+    4300030: DodgeUp
+    4300032: DodgeDown
+    4300034: DodgeLeft
+    4300036: DodgeRight
+    4300038: Charge
+    4300040: DohyoOverline
+    4300042: Practice
+    4300044: Back
+    4300046: Movement
+    4300048: Dodge
+    4300050: ControlsPlayer
+    4300052: Num1
+    4300054: Num2
+    4300056: Num3
+    4300058: Num4
+    4300060: Arrow
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
