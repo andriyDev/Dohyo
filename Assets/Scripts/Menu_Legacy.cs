@@ -90,14 +90,6 @@ public class MenuLegacy : MonoBehaviour
         j4_p3.SetActive(playerCount == 1);
         j4_p4.SetActive(playerCount == 2);
 
-        if (selectedPage >= 0 && selectedPage < pages.Length)
-        {
-            for (int i = 0; i < pages[selectedPage].options.Length; i++)
-            {
-                pages[selectedPage].options[i].scaleTarget.transform.localScale = Vector3.MoveTowards(pages[selectedPage].options[i].scaleTarget.transform.localScale, i == selectedOption ? new Vector3(textSelectedScale, textSelectedScale, textSelectedScale) : new Vector3(1, 1, 1), textSelectedScaleSpeed * Time.deltaTime);
-            }
-        }
-
         /*
         switch (selectOptions)
         {
