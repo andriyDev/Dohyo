@@ -512,7 +512,7 @@ public class Menu : MonoBehaviour
     public void CycleMap()
     {
         currentMapIndex = (currentMapIndex + 1) % maps.Length;
-        
+        ChangeMap(maps[currentMapIndex]);
     }
 
     private void ChangeMap(string map)
