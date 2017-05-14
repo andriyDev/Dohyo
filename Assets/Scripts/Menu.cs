@@ -9,7 +9,7 @@ using TeamUtility.IO;
 [System.Serializable]
 public struct MenuPage
 {
-    public GameObject cameraPosition;
+    public string cameraPosition;
     public GameObject defaultSelection;
 }
 
@@ -21,7 +21,7 @@ public class Menu : MonoBehaviour
     public static string desiredPlayerScene = "Dohyo";
 
     public static Menu current;
-    
+
     [SerializeField]
     public MenuPage[] pages;
 
@@ -68,6 +68,8 @@ public class Menu : MonoBehaviour
     // ===== ===== //
 
     // ===== Local Fight Stuff ===== //
+    private string[] maps = { "Dohyo" };
+
     private List<string> unjoinedPlayers = new List<string>(new string[] { "Player1", "Player2", "Player3", "Player4" });
     private Dictionary<string, float> playerInputDelays = new Dictionary<string, float>();
     private Dictionary<string, Text> playerReadyState = new Dictionary<string, Text>();
@@ -268,13 +270,13 @@ public class Menu : MonoBehaviour
         bind = InputManager.GetAxisConfiguration("Player" + (selectedControlConfig + 1), "Cancel");
         if (bind.type == InputType.DigitalAxis)
         {
-            Controls_A_Cancel.text = "Cancel (menu): " + bind.positive.ToString();
+            Controls_A_Cancel.text = "Unready: " + bind.positive.ToString();
         }
         else
         {
-            Controls_A_Cancel.text = "Cancel (menu): " + (bind.type == InputType.MouseAxis ? (bind.axis == 0 ? "Mouse X" : "Mouse Y") : (bind.type == InputType.AnalogAxis ? "Joystick" + (bind.joystick + 1) + "Axis" + (bind.axis + 1) : "<undefined>"));
+            Controls_A_Cancel.text = "Unready: " + (bind.type == InputType.MouseAxis ? (bind.axis == 0 ? "Mouse X" : "Mouse Y") : (bind.type == InputType.AnalogAxis ? "Joystick" + (bind.joystick + 1) + "Axis" + (bind.axis + 1) : "<undefined>"));
         }
-        if (bindingAction == 10) { Controls_A_Cancel.text = "Cancel (menu): <binding>"; }
+        if (bindingAction == 10) { Controls_A_Cancel.text = "Unready: <binding>"; }
     }
 
     public void ChangePage(int page)
@@ -298,8 +300,8 @@ public class Menu : MonoBehaviour
         {
             Vector3 startPos = targetCamera.transform.position;
             Vector3 startRot = targetCamera.transform.forward;
-            Vector3 endPos = pages[currentPage].cameraPosition.transform.position;
-            Vector3 endRot = pages[currentPage].cameraPosition.transform.forward;
+            Vector3 endPos = GameObject.Find(pages[currentPage].cameraPosition).transform.position;
+            Vector3 endRot = GameObject.Find(pages[currentPage].cameraPosition).transform.forward;
 
             float startTime = Time.time;
 
@@ -514,6 +516,8 @@ public class Menu : MonoBehaviour
         currentMap = newMap;
         canHandleAction = true;
         SceneManager.sceneLoaded -= LoadedNewMap;
+
+
     }
 
     public void QuitGame()

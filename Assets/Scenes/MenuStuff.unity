@@ -117,7 +117,7 @@ GameObject:
   m_Component:
   - component: {fileID: 31645321}
   m_Layer: 5
-  m_Name: OnlineFight
+  m_Name: Cam_OnlineFight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -751,17 +751,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pages:
-  - cameraPosition: {fileID: 1463149965}
+  - cameraPosition: Cam_MainMenu
     defaultSelection: {fileID: 1492253395}
-  - cameraPosition: {fileID: 594795283}
+  - cameraPosition: Cam_LocalFight
     defaultSelection: {fileID: 1856120551}
-  - cameraPosition: {fileID: 31645320}
+  - cameraPosition: Cam_OnlineFight
     defaultSelection: {fileID: 1067025282}
-  - cameraPosition: {fileID: 1450949044}
+  - cameraPosition: Cam_CreateFight
     defaultSelection: {fileID: 319266595}
-  - cameraPosition: {fileID: 1866802031}
+  - cameraPosition: Cam_Options
     defaultSelection: {fileID: 284190064}
-  - cameraPosition: {fileID: 1788601671}
+  - cameraPosition: Cam_Controls
     defaultSelection: {fileID: 813351925}
   menuTransitionTime: 0.25
   targetCamera: {fileID: 897052653}
@@ -2933,7 +2933,7 @@ GameObject:
   m_Component:
   - component: {fileID: 594795284}
   m_Layer: 5
-  m_Name: LocalFight
+  m_Name: Cam_LocalFight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6098,7 +6098,7 @@ GameObject:
   - component: {fileID: 1245371980}
   - component: {fileID: 1245371979}
   m_Layer: 5
-  m_Name: Cancel
+  m_Name: Unready
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6964,7 +6964,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1450949045}
   m_Layer: 5
-  m_Name: CreateFight
+  m_Name: Cam_CreateFight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6992,7 +6992,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1463149966}
   m_Layer: 5
-  m_Name: MainMenu
+  m_Name: Cam_MainMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8902,7 +8902,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1788601672}
   m_Layer: 5
-  m_Name: Controls
+  m_Name: Cam_Controls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9181,7 +9181,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1866802032}
   m_Layer: 5
-  m_Name: Options
+  m_Name: Cam_Options
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10366,7 +10366,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Cancel (menu): backspace'
+  m_Text: 'Unready: backspace'
 --- !u!222 &2064479184
 CanvasRenderer:
   m_ObjectHideFlags: 0
