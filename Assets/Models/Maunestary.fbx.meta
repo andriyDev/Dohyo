@@ -1,0 +1,202 @@
+fileFormatVersion: 2
+guid: 72ff5ea12099d1e4d87bb59fc47285ea
+timeCreated: 1494801514
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: BackgroundWall
+    100002: Bridge
+    100004: Bushes
+    100006: CenterMarker1
+    100008: CenterMarker2
+    100010: CherryBlossom
+    100012: Cube
+    100014: Door
+    100016: Landscape
+    100018: //RootNode
+    100020: RingBase
+    100022: RingBorder1
+    100024: RingBorder2
+    100026: RingBorder3
+    100028: RingBorder4
+    100030: RingCorner1
+    100032: RingCorner2
+    100034: RingCorner3
+    100036: RingCorner4
+    100038: RingEdge
+    100040: River
+    100042: Road
+    100044: Rocks
+    100046: Tree1
+    100048: Tree2
+    100050: Tree3
+    400000: BackgroundWall
+    400002: Bridge
+    400004: Bushes
+    400006: CenterMarker1
+    400008: CenterMarker2
+    400010: CherryBlossom
+    400012: Cube
+    400014: Door
+    400016: Landscape
+    400018: //RootNode
+    400020: RingBase
+    400022: RingBorder1
+    400024: RingBorder2
+    400026: RingBorder3
+    400028: RingBorder4
+    400030: RingCorner1
+    400032: RingCorner2
+    400034: RingCorner3
+    400036: RingCorner4
+    400038: RingEdge
+    400040: River
+    400042: Road
+    400044: Rocks
+    400046: Tree1
+    400048: Tree2
+    400050: Tree3
+    2300000: BackgroundWall
+    2300002: Bridge
+    2300004: Bushes
+    2300006: CenterMarker1
+    2300008: CenterMarker2
+    2300010: CherryBlossom
+    2300012: Cube
+    2300014: Door
+    2300016: Landscape
+    2300018: RingBase
+    2300020: RingBorder1
+    2300022: RingBorder2
+    2300024: RingBorder3
+    2300026: RingBorder4
+    2300028: RingCorner1
+    2300030: RingCorner2
+    2300032: RingCorner3
+    2300034: RingCorner4
+    2300036: RingEdge
+    2300038: River
+    2300040: Road
+    2300042: Rocks
+    2300044: Tree1
+    2300046: Tree2
+    2300048: Tree3
+    3300000: BackgroundWall
+    3300002: Bridge
+    3300004: Bushes
+    3300006: CenterMarker1
+    3300008: CenterMarker2
+    3300010: CherryBlossom
+    3300012: Cube
+    3300014: Door
+    3300016: Landscape
+    3300018: RingBase
+    3300020: RingBorder1
+    3300022: RingBorder2
+    3300024: RingBorder3
+    3300026: RingBorder4
+    3300028: RingCorner1
+    3300030: RingCorner2
+    3300032: RingCorner3
+    3300034: RingCorner4
+    3300036: RingEdge
+    3300038: River
+    3300040: Road
+    3300042: Rocks
+    3300044: Tree1
+    3300046: Tree2
+    3300048: Tree3
+    4300000: Door
+    4300002: Road
+    4300004: Cube
+    4300006: CherryBlossom
+    4300008: Rocks
+    4300010: Bushes
+    4300012: Bridge
+    4300014: Tree2
+    4300016: Landscape
+    4300018: CenterMarker1
+    4300020: RingCorner4
+    4300022: RingCorner2
+    4300024: RingCorner3
+    4300026: RingCorner1
+    4300028: RingBorder4
+    4300030: RingBorder3
+    4300032: RingBorder2
+    4300034: RingBase
+    4300036: RingBorder1
+    4300038: RingEdge
+    4300040: CenterMarker2
+    4300042: River
+    4300044: BackgroundWall
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
