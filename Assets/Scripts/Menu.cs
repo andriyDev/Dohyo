@@ -9,8 +9,10 @@ using TeamUtility.IO;
 [System.Serializable]
 public struct MenuPage
 {
-    public string cameraPosition;
+    public string cameraPositionTag;
+    public string canvasPositionTag;
     public GameObject defaultSelection;
+    public GameObject canvas;
 }
 
 public class Menu : MonoBehaviour
@@ -43,6 +45,10 @@ public class Menu : MonoBehaviour
     public Text LocalFight_P3_State;
     public Text LocalFight_P4_State;
 
+    [Header("Map References")]
+    public Text LocalFight_Map;
+    public Text CreateFight_Map;
+
     [Header("Controls")]
     public Text Controls_PlayerNumText;
     public Text Controls_M_Up;
@@ -56,7 +62,10 @@ public class Menu : MonoBehaviour
     public Text Controls_A_Charge;
     public Text Controls_A_Cancel;
 
+    // ===== Map Swapping ===== //
     private Scene currentMap;
+    private int currentMapIndex;
+    // ===== ===== //
 
     private int currentPage;
 
@@ -181,7 +190,7 @@ public class Menu : MonoBehaviour
             }
             else
             {
-                LocalFight_Message.text = "" + seconds;
+                LocalFight_Message.text = "" + seconds + "...";
             }
             yield return null;
         }
@@ -300,8 +309,8 @@ public class Menu : MonoBehaviour
         {
             Vector3 startPos = targetCamera.transform.position;
             Vector3 startRot = targetCamera.transform.forward;
-            Vector3 endPos = GameObject.Find(pages[currentPage].cameraPosition).transform.position;
-            Vector3 endRot = GameObject.Find(pages[currentPage].cameraPosition).transform.forward;
+            Vector3 endPos = GameObject.FindGameObjectWithTag(pages[currentPage].cameraPositionTag).transform.position;
+            Vector3 endRot = GameObject.FindGameObjectWithTag(pages[currentPage].cameraPositionTag).transform.forward;
 
             float startTime = Time.time;
 
@@ -500,13 +509,19 @@ public class Menu : MonoBehaviour
         inputModule.allowInput = true;
     }
 
-    public void ChangeMap(string map)
+    public void CycleMap()
     {
-        if (canHandleAction)
+        currentMapIndex = (currentMapIndex + 1) % maps.Length;
+        
+    }
+
+    private void ChangeMap(string map)
+    {
+        if (canHandleAction && currentMap.name != map)
         {
+            canHandleAction = false;
             SceneManager.UnloadSceneAsync(currentMap);
             SceneManager.sceneLoaded += LoadedNewMap;
-            canHandleAction = false;
             SceneManager.LoadSceneAsync(map, LoadSceneMode.Additive);
         }
     }
@@ -514,10 +529,23 @@ public class Menu : MonoBehaviour
     private void LoadedNewMap(Scene newMap, LoadSceneMode mode)
     {
         currentMap = newMap;
-        canHandleAction = true;
         SceneManager.sceneLoaded -= LoadedNewMap;
 
+        for (int i = 0; i < pages.Length; i++)
+        {
+            pages[i].canvas.transform.position = GameObject.FindGameObjectWithTag(pages[i].canvasPositionTag).transform.position;
+            pages[i].canvas.transform.forward = GameObject.FindGameObjectWithTag(pages[i].canvasPositionTag).transform.forward;
+        }
 
+        if (currentPage > -1 && currentPage < pages.Length)
+        {
+            targetCamera.transform.position = GameObject.FindGameObjectWithTag(pages[currentPage].cameraPositionTag).transform.position;
+            targetCamera.transform.forward = GameObject.FindGameObjectWithTag(pages[currentPage].cameraPositionTag).transform.forward;
+        }
+
+        LocalFight_Map.text = "Map: " + newMap.name;
+        CreateFight_Map.text = "Map: " + newMap.name;
+        canHandleAction = true;
     }
 
     public void QuitGame()

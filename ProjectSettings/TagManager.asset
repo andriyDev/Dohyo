@@ -5,6 +5,18 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ring
+  - Cam_MainMenu
+  - Cam_LocalFight
+  - Cam_OnlineFight
+  - Cam_CreateFight
+  - Cam_Options
+  - Cam_Controls
+  - Cnv_MainManu
+  - Cnv_LocalFight
+  - Cnv_OnlineFight
+  - Cnv_CreateFight
+  - Cnv_Options
+  - Cnv_Controls
   layers:
   - Default
   - TransparentFX

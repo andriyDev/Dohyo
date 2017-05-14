@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 31645321}
   m_Layer: 5
   m_Name: Cam_OnlineFight
-  m_TagString: Untagged
+  m_TagString: Cam_OnlineFight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -751,18 +751,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pages:
-  - cameraPosition: Cam_MainMenu
+  - cameraPositionTag: Cam_MainMenu
+    canvasPositionTag: Cnv_MainMenu
     defaultSelection: {fileID: 1492253395}
-  - cameraPosition: Cam_LocalFight
+    canvas: {fileID: 1609080575}
+  - cameraPositionTag: Cam_LocalFight
+    canvasPositionTag: Cnv_LocalFight
     defaultSelection: {fileID: 1856120551}
-  - cameraPosition: Cam_OnlineFight
+    canvas: {fileID: 1306142524}
+  - cameraPositionTag: Cam_OnlineFight
+    canvasPositionTag: Cnv_OnlineFight
     defaultSelection: {fileID: 1067025282}
-  - cameraPosition: Cam_CreateFight
+    canvas: {fileID: 1519911793}
+  - cameraPositionTag: Cam_CreateFight
+    canvasPositionTag: Cnv_CreateFight
     defaultSelection: {fileID: 319266595}
-  - cameraPosition: Cam_Options
+    canvas: {fileID: 794372215}
+  - cameraPositionTag: Cam_Options
+    canvasPositionTag: Cnv_Options
     defaultSelection: {fileID: 284190064}
-  - cameraPosition: Cam_Controls
+    canvas: {fileID: 1520536556}
+  - cameraPositionTag: Cam_Controls
+    canvasPositionTag: Cnv_Controls
     defaultSelection: {fileID: 813351925}
+    canvas: {fileID: 1600402950}
   menuTransitionTime: 0.25
   targetCamera: {fileID: 897052653}
   events: {fileID: 1325483134}
@@ -775,6 +787,8 @@ MonoBehaviour:
   LocalFight_P2_State: {fileID: 1532807288}
   LocalFight_P3_State: {fileID: 1543846972}
   LocalFight_P4_State: {fileID: 1118744981}
+  LocalFight_Map: {fileID: 0}
+  CreateFight_Map: {fileID: 0}
   Controls_PlayerNumText: {fileID: 701349755}
   Controls_M_Up: {fileID: 99049688}
   Controls_M_Down: {fileID: 111159268}
@@ -803,6 +817,7 @@ Transform:
   - {fileID: 1520536560}
   - {fileID: 1600402954}
   - {fileID: 1701562954}
+  - {fileID: 1203887534}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2332,12 +2347,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 60633748}
-        m_MethodName: 
+      - m_Target: {fileID: 60633749}
+        m_MethodName: CycleMap
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2650,6 +2665,34 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &429914834
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 429914835}
+  m_Layer: 5
+  m_Name: Cnv_CreateFight
+  m_TagString: Cnv_CreateFight
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &429914835
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 429914834}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.179901, y: 3.9421997, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1203887534}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &509795429
 GameObject:
   m_ObjectHideFlags: 0
@@ -2761,6 +2804,34 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &523904370
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 523904371}
+  m_Layer: 5
+  m_Name: Cnv_Options
+  m_TagString: Cnv_Options
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &523904371
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 523904370}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.8899231, y: -4.087799, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1203887534}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &527664257
 GameObject:
   m_ObjectHideFlags: 0
@@ -2855,6 +2926,34 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &560917048
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 560917049}
+  m_Layer: 5
+  m_Name: Cnv_MainMenu
+  m_TagString: Cnv_MainManu
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &560917049
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 560917048}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.840088, y: -0.047790527, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1203887534}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &568937791
 GameObject:
   m_ObjectHideFlags: 0
@@ -2934,7 +3033,7 @@ GameObject:
   - component: {fileID: 594795284}
   m_Layer: 5
   m_Name: Cam_LocalFight
-  m_TagString: Untagged
+  m_TagString: Cam_LocalFight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5284,6 +5383,34 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1075397624
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1075397625}
+  m_Layer: 5
+  m_Name: Cnv_Controls
+  m_TagString: Cnv_Controls
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1075397625
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1075397624}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.439911, y: -4.087799, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1203887534}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1100503947
 GameObject:
   m_ObjectHideFlags: 0
@@ -5859,6 +5986,40 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1171416937}
+--- !u!1 &1203887533
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1203887534}
+  m_Layer: 0
+  m_Name: MenuCanvasPositions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1203887534
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1203887533}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 560917049}
+  - {fileID: 1865503514}
+  - {fileID: 1706941142}
+  - {fileID: 429914835}
+  - {fileID: 523904371}
+  - {fileID: 1075397625}
+  m_Father: {fileID: 60633750}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1211433347
 GameObject:
   m_ObjectHideFlags: 0
@@ -6965,7 +7126,7 @@ GameObject:
   - component: {fileID: 1450949045}
   m_Layer: 5
   m_Name: Cam_CreateFight
-  m_TagString: Untagged
+  m_TagString: Cam_CreateFight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6993,7 +7154,7 @@ GameObject:
   - component: {fileID: 1463149966}
   m_Layer: 5
   m_Name: Cam_MainMenu
-  m_TagString: Untagged
+  m_TagString: Cam_MainMenu
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8284,6 +8445,34 @@ Transform:
   m_Father: {fileID: 60633750}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1706941141
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1706941142}
+  m_Layer: 5
+  m_Name: Cnv_OnlineFight
+  m_TagString: Cnv_OnlineFight
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1706941142
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1706941141}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.8899231, y: -0.017791748, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1203887534}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1724385426
 GameObject:
   m_ObjectHideFlags: 0
@@ -8903,7 +9092,7 @@ GameObject:
   - component: {fileID: 1788601672}
   m_Layer: 5
   m_Name: Cam_Controls
-  m_TagString: Untagged
+  m_TagString: Cam_Controls
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9134,12 +9323,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 60633748}
-        m_MethodName: 
+      - m_Target: {fileID: 60633749}
+        m_MethodName: CycleMap
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -9172,6 +9361,34 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1865503513
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1865503514}
+  m_Layer: 5
+  m_Name: Cnv_LocalFight
+  m_TagString: Cnv_LocalFight
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1865503514
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1865503513}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.9399109, y: 3.9421997, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1203887534}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1866802031
 GameObject:
   m_ObjectHideFlags: 0
@@ -9182,7 +9399,7 @@ GameObject:
   - component: {fileID: 1866802032}
   m_Layer: 5
   m_Name: Cam_Options
-  m_TagString: Untagged
+  m_TagString: Cam_Options
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
