@@ -33,7 +33,17 @@ public class Menu : MonoBehaviour
     public EventSystem events;
     public TeamUtility.IO.StandaloneInputModule inputModule;
 
-    // Update References
+    [Header("Local Fight")]
+    public SelectedListener readyArea;
+    public float playerStateChangeDelay;
+    public float timeAfterReady = 3;
+    public Text LocalFight_Message;
+    public Text LocalFight_P1_State;
+    public Text LocalFight_P2_State;
+    public Text LocalFight_P3_State;
+    public Text LocalFight_P4_State;
+
+    [Header("Controls")]
     public Text Controls_PlayerNumText;
     public Text Controls_M_Up;
     public Text Controls_M_Down;
@@ -44,20 +54,148 @@ public class Menu : MonoBehaviour
     public Text Controls_D_Left;
     public Text Controls_D_Right;
     public Text Controls_A_Charge;
+    public Text Controls_A_Cancel;
+
+    private Scene currentMap;
 
     private int currentPage;
 
     private bool canHandleAction = true;
 
+    // ===== Key Binding Stuff ===== //
     private int selectedControlConfig;
     private int bindingAction = 0;
+    // ===== ===== //
+
+    // ===== Local Fight Stuff ===== //
+    private List<string> unjoinedPlayers = new List<string>(new string[] { "Player1", "Player2", "Player3", "Player4" });
+    private Dictionary<string, float> playerInputDelays = new Dictionary<string, float>();
+    private Dictionary<string, Text> playerReadyState = new Dictionary<string, Text>();
+    private List<string> joinedPlayers = new List<string>(4);
+    private List<string> readyPlayers = new List<string>(4);
+    private float gameStartingTime;
+    // ===== ===== //
 
     private void Start()
     {
         current = this;
+        for(int i = 0; i < unjoinedPlayers.Count; i++)
+        {
+            playerInputDelays.Add(unjoinedPlayers[i], 0);
+        }
+
+        playerReadyState.Add("Player1", LocalFight_P1_State);
+        playerReadyState.Add("Player2", LocalFight_P2_State);
+        playerReadyState.Add("Player3", LocalFight_P3_State);
+        playerReadyState.Add("Player4", LocalFight_P4_State);
     }
 
     private void Update()
+    {
+        ManageLocalFightScreen();
+        SyncControlsScreen();
+    }
+
+    private void ManageLocalFightScreen()
+    {
+        for(int i = 0; i < unjoinedPlayers.Count; i++)
+        {
+            playerReadyState[unjoinedPlayers[i]].text = "N/A";
+        }
+
+        for (int i = 0; i < joinedPlayers.Count; i++)
+        {
+            playerReadyState[joinedPlayers[i]].text = "P" + joinedPlayers[i].Substring(6) + "\nUnready...";
+        }
+
+        for (int i = 0; i < readyPlayers.Count; i++)
+        {
+            playerReadyState[readyPlayers[i]].text = "P" + readyPlayers[i].Substring(6) + "\nReady!";
+        }
+
+        if (readyArea.isSelected)
+        {
+            for (int i = 0; i < unjoinedPlayers.Count; i++)
+            {
+                if(Time.time - playerInputDelays[unjoinedPlayers[i]] > playerStateChangeDelay && InputManager.GetAxis("Charge", unjoinedPlayers[i]) > 0)
+                {
+                    joinedPlayers.Add(unjoinedPlayers[i]);
+                    playerInputDelays[unjoinedPlayers[i]] = Time.time;
+                    unjoinedPlayers.RemoveAt(i--);
+                }
+            }
+
+            for (int i = 0; i < joinedPlayers.Count; i++)
+            {
+                if (Time.time - playerInputDelays[joinedPlayers[i]] > playerStateChangeDelay)
+                {
+                    if (InputManager.GetAxis("Charge", joinedPlayers[i]) > 0)
+                    {
+                        readyPlayers.Add(joinedPlayers[i]);
+                        playerInputDelays[joinedPlayers[i]] = Time.time;
+                        joinedPlayers.RemoveAt(i--);
+                    }
+                    else if(InputManager.GetAxis("Cancel", joinedPlayers[i]) > 0)
+                    {
+                        unjoinedPlayers.Add(joinedPlayers[i]);
+                        playerInputDelays[joinedPlayers[i]] = Time.time;
+                        joinedPlayers.RemoveAt(i--);
+                    }
+                }
+            }
+
+            for (int i = 0; i < readyPlayers.Count; i++)
+            {
+                if (Time.time - playerInputDelays[readyPlayers[i]] > playerStateChangeDelay && InputManager.GetAxis("Charge", readyPlayers[i]) > 0)
+                {
+                    joinedPlayers.Add(readyPlayers[i]);
+                    playerInputDelays[readyPlayers[i]] = Time.time;
+                    readyPlayers.RemoveAt(i--);
+                }
+            }
+
+            if (readyPlayers.Count > 1 && joinedPlayers.Count == 0 && gameStartingTime == 0)
+            {
+                gameStartingTime = Time.time;
+                StartCoroutine(AllPlayersReady());
+            }
+        }
+    }
+
+    IEnumerator AllPlayersReady()
+    {
+        float timeDiff;
+        while((timeDiff = Time.time - gameStartingTime) < timeAfterReady)
+        {
+            if (readyPlayers.Count < 2 || joinedPlayers.Count != 0)
+            {
+                break;
+            }
+
+            int seconds = (int)(timeAfterReady - timeDiff);
+            if (seconds == 0)
+            {
+                LocalFight_Message.text = "Starting!";
+            }
+            else
+            {
+                LocalFight_Message.text = "" + seconds;
+            }
+            yield return null;
+        }
+
+        if(Time.time - gameStartingTime >= timeAfterReady)
+        {
+            // TODO: Begin the game.
+        }
+        else
+        {
+            gameStartingTime = 0;
+            LocalFight_Message.text = "Press <Charge> to join and ready!";
+        }
+    }
+
+    private void SyncControlsScreen()
     {
         Controls_PlayerNumText.text = "Player " + (1 + selectedControlConfig);
 
@@ -127,6 +265,16 @@ public class Menu : MonoBehaviour
             Controls_A_Charge.text = "Charge: " + (bind.type == InputType.MouseAxis ? (bind.axis == 0 ? "Mouse X" : "Mouse Y") : (bind.type == InputType.AnalogAxis ? "Joystick" + (bind.joystick + 1) + "Axis" + (bind.axis + 1) : "<undefined>"));
         }
         if (bindingAction == 9) { Controls_A_Charge.text = "Charge: <binding>"; }
+        bind = InputManager.GetAxisConfiguration("Player" + (selectedControlConfig + 1), "Cancel");
+        if (bind.type == InputType.DigitalAxis)
+        {
+            Controls_A_Cancel.text = "Cancel (menu): " + bind.positive.ToString();
+        }
+        else
+        {
+            Controls_A_Cancel.text = "Cancel (menu): " + (bind.type == InputType.MouseAxis ? (bind.axis == 0 ? "Mouse X" : "Mouse Y") : (bind.type == InputType.AnalogAxis ? "Joystick" + (bind.joystick + 1) + "Axis" + (bind.axis + 1) : "<undefined>"));
+        }
+        if (bindingAction == 10) { Controls_A_Cancel.text = "Cancel (menu): <binding>"; }
     }
 
     public void ChangePage(int page)
@@ -246,6 +394,11 @@ public class Menu : MonoBehaviour
                     desiredBind.type = InputType.DigitalAxis;
                     desiredBind.positive = result.scanFlags == ScanFlags.JoystickButton ? (KeyCode)System.Enum.Parse(typeof(KeyCode), "Joystick" + result.joystick + "Button" + result.key.ToString().Substring(14)) : result.key;
                     break;
+                case 10:
+                    desiredBind = InputManager.GetAxisConfiguration("Player" + (selectedControlConfig + 1), "Cancel");
+                    desiredBind.type = InputType.DigitalAxis;
+                    desiredBind.positive = result.scanFlags == ScanFlags.JoystickButton ? (KeyCode)System.Enum.Parse(typeof(KeyCode), "Joystick" + result.joystick + "Button" + result.key.ToString().Substring(14)) : result.key;
+                    break;
             }
         }
         else if (result.scanFlags == ScanFlags.MouseAxis)
@@ -279,6 +432,11 @@ public class Menu : MonoBehaviour
                     break;
                 case 9:
                     desiredBind = InputManager.GetAxisConfiguration("Player" + (selectedControlConfig + 1), "Charge");
+                    desiredBind.type = InputType.MouseAxis;
+                    desiredBind.SetMouseAxis(result.mouseAxis);
+                    break;
+                case 10:
+                    desiredBind = InputManager.GetAxisConfiguration("Player" + (selectedControlConfig + 1), "Cancel");
                     desiredBind.type = InputType.MouseAxis;
                     desiredBind.SetMouseAxis(result.mouseAxis);
                     break;
@@ -318,6 +476,11 @@ public class Menu : MonoBehaviour
                     desiredBind.type = InputType.AnalogAxis;
                     desiredBind.SetAnalogAxis(result.joystick, result.joystickAxis);
                     break;
+                case 10:
+                    desiredBind = InputManager.GetAxisConfiguration("Player" + (selectedControlConfig + 1), "Cancel");
+                    desiredBind.type = InputType.AnalogAxis;
+                    desiredBind.SetAnalogAxis(result.joystick, result.joystickAxis);
+                    break;
             }
         }
         else
@@ -333,6 +496,24 @@ public class Menu : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(.5f);
         inputModule.allowInput = true;
+    }
+
+    public void ChangeMap(string map)
+    {
+        if (canHandleAction)
+        {
+            SceneManager.UnloadSceneAsync(currentMap);
+            SceneManager.sceneLoaded += LoadedNewMap;
+            canHandleAction = false;
+            SceneManager.LoadSceneAsync(map, LoadSceneMode.Additive);
+        }
+    }
+
+    private void LoadedNewMap(Scene newMap, LoadSceneMode mode)
+    {
+        currentMap = newMap;
+        canHandleAction = true;
+        SceneManager.sceneLoaded -= LoadedNewMap;
     }
 
     public void QuitGame()

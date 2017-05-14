@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TeamUtility.IO;
 using UnityEngine;
 
 public enum PlayerState { Default, Taunting, Charging, Decelerating, BeingCharged, AfterCharged, Dodging, DodgeBumped, Recovering, GameOver, Win };
@@ -8,11 +9,7 @@ public enum PlayerState { Default, Taunting, Charging, Decelerating, BeingCharge
 public class Player : MonoBehaviour
 {
     [Header("Input")]
-    public string horizontalAxisName;
-    public string verticalAxisName;
-    public string dodgeHorizAxisName;
-    public string dodgeVertAxisName;
-    public string chargeButtonName;
+    public string configurationName;
 
     [Header("Movement")]
     public float speed = 30;
@@ -121,12 +118,12 @@ public class Player : MonoBehaviour
 
         SyncModelToState();
 
-        float stepHorizontal = Input.GetAxis(dodgeHorizAxisName);
-        float stepVertical = Input.GetAxis(dodgeVertAxisName);
+        float stepHorizontal = InputManager.GetAxis("Dodge_Horiz", configurationName);
+        float stepVertical = InputManager.GetAxis("Dodge_Vert", configurationName);
         Vector3 step = new Vector3(stepHorizontal, 0, stepVertical);
         step = LocalToGlobal(step);
 
-        if (state == PlayerState.Default && Input.GetButtonDown(chargeButtonName))
+        if (state == PlayerState.Default && InputManager.GetButtonDown("Charge", configurationName))
         {
             if (hasCharge)
             {
@@ -197,8 +194,8 @@ public class Player : MonoBehaviour
             return;
         }
 
-        float moveHorizontal = Input.GetAxis(horizontalAxisName);
-        float moveVertical = Input.GetAxis(verticalAxisName);
+        float moveHorizontal = InputManager.GetAxis("Move_Horiz", configurationName);
+        float moveVertical = InputManager.GetAxis("Move_Vert", configurationName);
         if (state != PlayerState.Dodging)
         {
             dodged = false;
