@@ -146,7 +146,7 @@ public class Menu : MonoBehaviour
 
             for (int i = 0; i < readyPlayers.Count; i++)
             {
-                if (Time.time - playerInputDelays[readyPlayers[i]] > playerStateChangeDelay && InputManager.GetAxis("Charge", readyPlayers[i]) > 0)
+                if (Time.time - playerInputDelays[readyPlayers[i]] > playerStateChangeDelay && InputManager.GetAxis("Cancel", readyPlayers[i]) > 0)
                 {
                     joinedPlayers.Add(readyPlayers[i]);
                     playerInputDelays[readyPlayers[i]] = Time.time;
